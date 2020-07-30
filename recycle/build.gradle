@@ -33,7 +33,4 @@ dependencies {
     androidTestImplementation "androidx.test.ext:junit:$androidx_test_ext_junit"
     androidTestImplementation "androidx.test.espresso:espresso-core:$androidx_test_espresso_core"
 
-    api project(':core')
-    api project(':recycle')
-
 }
