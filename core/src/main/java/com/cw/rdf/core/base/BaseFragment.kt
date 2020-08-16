@@ -6,12 +6,12 @@ import com.cw.rdf.core.helper.RequestPermissionHelper
 import pub.devrel.easypermissions.EasyPermissions
 
 /**
- * @Description:
+ * @Description: 最基的 Fragment
  * @Author: wanglejun
  * @CreateDate： 2020/8/3 12:15 AM
  *
  */
-class BaseFragment:Fragment(), EasyPermissions.PermissionCallbacks,
+open class BaseFragment:Fragment(), EasyPermissions.PermissionCallbacks,
 EasyPermissions.RationaleCallbacks {
     fun requestPermissions(
         permissions: Array<out String>,

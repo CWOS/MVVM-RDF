@@ -1,5 +1,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.cw.rdf.core">
 
-    /
+    <application>
+        <provider
+            android:name=".InitProvider"
+            android:authorities="${applicationId}.MVVM-RDF-init-provider"
+            android:exported="false"
+            android:multiprocess="true"/>
+    </application>
 </manifest>

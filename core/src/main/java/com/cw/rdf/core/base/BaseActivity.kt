@@ -8,12 +8,10 @@ import android.view.View
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import com.cw.rdf.core.helper.RequestPermissionHelper
-import com.cw.rdf.core.helper.RequestPermissionHelper.requestPermissions
 import pub.devrel.easypermissions.EasyPermissions
-import pub.devrel.easypermissions.helper.PermissionHelper
 
 /**
- * @Description: 最基础的 Activity Base
+ * @Description: 最基的 Activity Base
  * @Author: wanglejun
  * @CreateDate： 2020/7/30 11:59 PM
  *
