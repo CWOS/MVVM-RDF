@@ -7,7 +7,8 @@ import com.cw.rdf.core.contract.OnVMEventListener
 import com.cw.rdf.core.ext.bind
 import com.cw.rdf.core.model.EVENT_BACK
 import com.cw.rdf.core.utils.getViewModelType
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.android.ext.android.getKoin
+import org.koin.androidx.viewmodel.koin.getViewModel
 
 /**
  * @Description: Databinding + ViewModel BaseActivity
@@ -15,7 +16,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
  * @CreateDate： 2020/8/13 7:09 AM
  *
  */
-class BaseBindingViewModelActivity<BINDING : ViewDataBinding, VM : BaseViewModel>:
+open class BaseBindingViewModelActivity<BINDING : ViewDataBinding, VM : BaseViewModel>:
     BaseBindingActivity<BINDING>(),OnVMEventListener{
 
     val viewModel:VM by lazy {
@@ -47,7 +48,8 @@ class BaseBindingViewModelActivity<BINDING : ViewDataBinding, VM : BaseViewModel
      */
     private fun createViewModel():VM{
         val viewModel = getViewModelType(javaClass)?.let {
-            viewModel<BaseViewModel>() as VM
+            //通过反射获取具体的 ViewModel 类实例，使用 koin 动态注入
+            getKoin().getViewModel(this,it.kotlin,null,null) as VM
         }
         viewModel?.bind(this)
         return viewModel!!

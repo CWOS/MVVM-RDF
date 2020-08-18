@@ -1,6 +1,7 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion versions.compile_sdk_version
@@ -48,6 +49,6 @@ dependencies {
     api "org.jetbrains.anko:anko-commons:$versions.anko"
 
     // Koin AndroidX ViewModel features
-    implementation "org.koin:koin-androidx-viewmodel:$versions.koin_version"
+    api "org.koin:koin-androidx-viewmodel:$versions.koin_version"
 
 }

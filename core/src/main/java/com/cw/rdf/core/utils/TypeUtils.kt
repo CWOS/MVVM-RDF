@@ -17,6 +17,7 @@ fun getViewModelType(clazz: Class<*>) : Class<out ViewModel>? {
     if (superclass is ParameterizedType) {
         //返回表示此类型实际类型参数的 Type 对象的数组
         val actualTypeArguments = superclass.actualTypeArguments
+        //返回第一个符合条件的 Type 对象
        return actualTypeArguments.firstOrNull{
             it is Class<*> && BaseViewModel::class.java.isAssignableFrom(it)
         } as? Class<out ViewModel>
