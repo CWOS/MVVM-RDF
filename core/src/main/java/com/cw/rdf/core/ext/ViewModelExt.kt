@@ -14,6 +14,14 @@ import org.jetbrains.anko.toast
  *
  */
 
+/**
+ *
+ * @description BaseViewModel 扩展方法，自动bind ViewModel 数据变化提示信息
+ * observe owner 为继承 BaseBindingViewModelActivity 的 Activity
+ * @param context
+ * @return
+ *
+ */
 fun BaseViewModel.bind(context: Context) {
     if (context is BaseBindingViewModelActivity<*, *>) {
         hintText.observe(context, Observer {
@@ -40,6 +48,14 @@ fun BaseViewModel.bind(context: Context) {
 
 }
 
+/**
+ *
+ * @description BaseViewModel 扩展方法，自动bind ViewModel 数据变化提示信息
+ * observe owner 为继承 BaseBindingViewModelFragment 的 Fragment
+ * @param context
+ * @return
+ *
+ */
 fun BaseViewModel.bind(fragment: BaseBindingViewModelFragment<*, *>) {
     hintText.observe(fragment, Observer {
         val content = getHintText()

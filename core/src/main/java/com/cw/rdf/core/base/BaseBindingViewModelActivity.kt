@@ -1,6 +1,5 @@
 package com.cw.rdf.core.base
 
-import android.os.Bundle
 import androidx.databinding.ViewDataBinding
 import com.cw.rdf.core.BR
 import com.cw.rdf.core.contract.OnVMEventListener
@@ -21,10 +20,6 @@ open class BaseBindingViewModelActivity<BINDING : ViewDataBinding, VM : BaseView
 
     val viewModel:VM by lazy {
         createViewModel()
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
     }
 
     override fun initDataBinding(binding: BINDING) {

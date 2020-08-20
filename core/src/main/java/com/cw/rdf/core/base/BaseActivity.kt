@@ -158,7 +158,6 @@ EasyPermissions.RationaleCallbacks{
      * 
      */
     override fun onRationaleAccepted(requestCode: Int) {
-        TODO("Not yet implemented")
     }
 
 
