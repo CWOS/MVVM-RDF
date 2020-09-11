@@ -16,8 +16,8 @@ import com.cw.rdf.core.base.BaseBindingViewModelActivity
 class MainActivity : BaseBindingViewModelActivity<ActivityMainBinding,MainVm>() {
 
     override fun isLightStatusBar() = true
-//
-//    override fun isFullscreen() = true
-//
-//    override fun isTransparentStatusBar() = true
+    override fun initDataBinding(binding: ActivityMainBinding) {
+        super.initDataBinding(binding)
+        viewModel.getWXArticleChapters()
+    }
 }

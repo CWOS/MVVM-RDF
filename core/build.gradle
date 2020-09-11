@@ -38,6 +38,9 @@ android {
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$versions.kotlin_version"
+    api "org.jetbrains.kotlinx:kotlinx-coroutines-core:$versions.kotlinx_coroutines"
+    api "org.jetbrains.kotlinx:kotlinx-coroutines-android:$versions.kotlinx_coroutines"
+
     implementation "androidx.core:core-ktx:$versions.androidx_core_ktx"
     implementation "androidx.appcompat:appcompat:$versions.androidx_appcompat"
     testImplementation "junit:junit:$versions.test_junit"
@@ -62,4 +65,6 @@ dependencies {
     //图片加载
     api "com.github.bumptech.glide:glide:$versions.glide"
     kapt "com.github.bumptech.glide:compiler:$versions.glide"
+
+    api "javax.inject:javax.inject:1"
 }

@@ -4,7 +4,6 @@ import android.content.ContentProvider
 import android.content.ContentValues
 import android.database.Cursor
 import android.net.Uri
-import com.cw.rdf.core.di.rdfViewModelModules
 import com.cw.rdf.core.ext.getApplicationByReflect
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger

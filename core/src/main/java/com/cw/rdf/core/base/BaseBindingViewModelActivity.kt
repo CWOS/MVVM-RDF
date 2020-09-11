@@ -8,6 +8,7 @@ import com.cw.rdf.core.model.EVENT_BACK
 import com.cw.rdf.core.utils.getViewModelType
 import org.koin.android.ext.android.getKoin
 import org.koin.androidx.viewmodel.koin.getViewModel
+import org.koin.core.qualifier.named
 
 /**
  * @Description: Databinding + ViewModel BaseActivity
@@ -18,6 +19,8 @@ import org.koin.androidx.viewmodel.koin.getViewModel
 open class BaseBindingViewModelActivity<BINDING : ViewDataBinding, VM : BaseViewModel>:
     BaseBindingActivity<BINDING>(),OnVMEventListener{
 
+
+
     val viewModel:VM by lazy {
         createViewModel()
     }
@@ -26,6 +29,7 @@ open class BaseBindingViewModelActivity<BINDING : ViewDataBinding, VM : BaseView
         //RDF 默认自动绑定 vm。具体业务实现中在实际的视图 xml 文件中声明当前视图的 ViewModel 为
         // vm 即可自动进行绑定。
         binding.setVariable(BR.vm,viewModel)
+
     }
 
     override fun onViewModelEvent(eventId: Int) {

@@ -2,6 +2,10 @@ package com.cw.rdf.core.base
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.cw.rdf.core.http.CoroutineLambda
+import com.cw.rdf.core.http.ErrorHandle
+import com.cw.rdf.core.http.request
+import com.cw.rdf.core.model.EVENT_BACK
 import com.cw.rdf.core.model.ViewModelEvent
 
 /**
@@ -41,5 +45,20 @@ open class BaseViewModel: ViewModel() {
 
     protected fun postEvent(eventId: Int) {
         event.value = ViewModelEvent(eventId)
+    }
+
+    fun launch(isShowLoading: Boolean = true, onError: ErrorHandle ? = null, block: CoroutineLambda) {
+        request(error = { t ->
+            isLoading.value = false
+            onError?.invoke(t) == true
+        }) {
+            isLoading.value = isShowLoading
+            block()
+            isLoading.value = false
+        }
+    }
+
+    fun back(){
+        postEvent(EVENT_BACK)
     }
 }

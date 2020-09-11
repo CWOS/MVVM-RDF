@@ -1,7 +1,9 @@
 package com.cw.rdf.app
 
 import android.app.Application
-import com.cw.rdf.app.di.appViewModelModules
+import com.cqrd.mrt.mcf.di.retrofitModule
+import com.cw.rdf.app.di.appModule
+import com.cw.rdf.app.di.vmModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
@@ -19,7 +21,7 @@ class SampleApplication:Application() {
         startKoin {
             androidLogger(Level.DEBUG)
             androidContext(this@SampleApplication)
-            modules(appViewModelModules)
+            modules(retrofitModule, appModule, vmModule)
         }
     }
 }
