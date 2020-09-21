@@ -1,6 +1,7 @@
 package com.cw.rdf.app.vm
 
 import androidx.lifecycle.MutableLiveData
+import com.cw.rdf.app.model.ArticleChapter
 import com.cw.rdf.app.repository.DataRepository
 import com.cw.rdf.core.base.BaseViewModel
 
@@ -12,8 +13,8 @@ import com.cw.rdf.core.base.BaseViewModel
  */
 class MainVm(private val dataRepository: DataRepository):BaseViewModel() {
     val count = MutableLiveData<String>("999")
-
+    val articleChapters = MutableLiveData<List<ArticleChapter>>()
     fun getWXArticleChapters() = launch {
-        dataRepository.getWXArticleChapters()
+        articleChapters.value = dataRepository.getWXArticleChapters()
     }
 }
