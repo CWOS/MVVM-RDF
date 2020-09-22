@@ -1,9 +1,7 @@
 package com.cw.rdf.app
 
-import android.os.Bundle
 import com.cw.rdf.app.databinding.ActivityMainBinding
 import com.cw.rdf.app.vm.MainVm
-import com.cw.rdf.core.base.BaseActivity
 import com.cw.rdf.core.base.BaseBindingViewModelActivity
 
 /**

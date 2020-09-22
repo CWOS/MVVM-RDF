@@ -1,5 +1,6 @@
 package com.cw.rdf.recycle.base
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.annotation.LayoutRes
@@ -78,6 +79,7 @@ abstract class BasePageAdapter<T,BINDING : ViewDataBinding> : PagedListAdapter<T
     class CustomDiffItemCallback<T> : DiffUtil.ItemCallback<T>() {
         override fun areItemsTheSame(oldItem: T, newItem: T): Boolean = oldItem === newItem
 
+        @SuppressLint("DiffUtilEquals")
         override fun areContentsTheSame(oldItem: T, newItem: T): Boolean = oldItem == newItem
 
     }

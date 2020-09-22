@@ -21,3 +21,8 @@ data class ArticleChapter(
     var userControlSetTop:Boolean,
     var visible:Int
 )
+
+data class UserInfo(
+    var userName:String,
+    var passwd:String
+)

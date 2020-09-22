@@ -2,7 +2,11 @@ package com.cw.rdf.app.http
 
 import com.cw.rdf.app.model.ApiResponse
 import com.cw.rdf.app.model.ArticleChapter
+import com.cw.rdf.app.model.UserInfo
+import retrofit2.http.Field
+import retrofit2.http.FormUrlEncoded
 import retrofit2.http.GET
+import retrofit2.http.POST
 
 /**
  * @Description:
@@ -11,6 +15,39 @@ import retrofit2.http.GET
  *
  */
 interface ApiService {
+
+
+    /**
+     *
+     * @description 登录
+     * @param username 用户名
+     * @param password 密码
+     * @return
+     *
+     */
+    @FormUrlEncoded
+    @POST("/user/login")
+    suspend fun login(@Field("username") username:String,@Field("password") password:String):ApiResponse<UserInfo>
+
+    /**
+     *
+     * @description 注册
+     * @param username 用户名
+     * @param password 密码
+     * @param repassword 确定密码
+     * @return
+     *
+     */
+    @FormUrlEncoded
+    @POST("/user/register")
+    suspend fun register(@Field("username") username:String,@Field("password") password:String,
+                         @Field("repassword") repassword:String):ApiResponse<UserInfo>
+    /**
+     *
+     * @description 获取微信公众号列表
+     * @return
+     *
+     */
     @GET("/wxarticle/chapters/json ")
     suspend fun getWXArticleChapters():ApiResponse<List<ArticleChapter>>
 }

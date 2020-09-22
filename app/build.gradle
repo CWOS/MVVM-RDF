@@ -31,6 +31,12 @@ android {
     }
 }
 
+repositories {
+    flatDir {
+        dirs project(':rdf').file('libs')
+    }
+}
+
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$versions.kotlin_version"
@@ -41,5 +47,6 @@ dependencies {
     androidTestImplementation "androidx.test.ext:junit:$versions.androidx_test_ext_junit"
     androidTestImplementation "androidx.test.espresso:espresso-core:$versions.androidx_test_espresso_core"
 
+//    implementation project(':core')
     implementation project(':rdf')
 }
