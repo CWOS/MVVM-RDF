@@ -40,9 +40,8 @@ dependencies {
     androidTestImplementation "androidx.test.ext:junit:$versions.androidx_test_ext_junit"
     androidTestImplementation "androidx.test.espresso:espresso-core:$versions.androidx_test_espresso_core"
 
-//    api project(':core')
-    api project(':recycle')
-    api 'com.cw.rdf:core:0.0.1'
+    api 'com.cw.rdf:core:0.0.2'
+    api 'com.cw.rdf:recycle:0.0.1'
 
 }
 
@@ -51,7 +50,7 @@ publish {
     userOrg = 'wanglj0925'//用户名
     groupId = 'com.cw.rdf'//生成的gradle依赖前缀。
     artifactId = 'rdf'//项目名
-    publishVersion = '0.0.1' //版本号
+    publishVersion = '0.0.2' //版本号
     desc = 'rapid development framework' //描述
     website = 'https://github.com/CWOS/MVVM-RDF'
     repository = 'https://github.com/CWOS/MVVM-RDF.git'

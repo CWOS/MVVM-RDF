@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
+
     <data>
+
         <variable
             name="vm"
             type="com.cw.rdf.app.vm.MainVm" />
@@ -11,25 +13,39 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".MainActivity"
-        android:background="@android:color/holo_blue_dark">
+        tools:context=".MainActivity">
 
-<!--        <TextView-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:text="@{vm.count}"-->
-<!--            app:layout_constraintBottom_toBottomOf="parent"-->
-<!--            app:layout_constraintLeft_toLeftOf="parent"-->
-<!--            app:layout_constraintRight_toRightOf="parent"-->
-<!--            app:layout_constraintTop_toTopOf="parent" />-->
+        <!--        <TextView-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:text="@{vm.count}"-->
+        <!--            app:layout_constraintBottom_toBottomOf="parent"-->
+        <!--            app:layout_constraintLeft_toLeftOf="parent"-->
+        <!--            app:layout_constraintRight_toRightOf="parent"-->
+        <!--            app:layout_constraintTop_toTopOf="parent" />-->
 
-        <androidx.recyclerview.widget.RecyclerView
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/bottom_tab_layout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:data="@{vm.articleChapters}"
-            app:itemLayout="@{@layout/item_main_recycler}"
-            app:itemEventHandler="@{vm}"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:verticalSpace="@{2}"/>
+            android:layout_height="80dp"
+            android:background="#fff"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:tabGravity="fill"
+            app:tabIndicatorFullWidth="false"
+            app:tabIndicatorGravity="center"
+            app:tabIndicatorHeight="0dp"
+            app:tabMaxWidth="0dp"
+            app:tabMode="fixed"
+            app:tabRippleColor="@android:color/transparent"
+            app:tabSelectedTextColor="#33CCFF"
+            app:tabTextColor="#000"/>
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/main_viewpager2"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toTopOf="@id/bottom_tab_layout"
+            app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -14,7 +14,7 @@ import org.koin.androidx.viewmodel.koin.getViewModel
  * @CreateDate： 2020/8/13 7:29 AM
  *
  */
-class BaseBindingViewModelFragment<BINDING : ViewDataBinding, VM : BaseViewModel>:
+open class BaseBindingViewModelFragment<BINDING : ViewDataBinding, VM : BaseViewModel>:
     BaseBindingFragment<BINDING>(),OnVMEventListener {
     val viewModel:VM by lazy {
         createViewModel()
