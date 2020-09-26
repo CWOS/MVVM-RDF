@@ -12,17 +12,49 @@ data class ApiResponse<T>(
     var data: T?
 )
 
+/**
+ *
+ * @Description:微信公众号
+ * @Author: wanglejun
+ * @CreateDate：2020/9/24 11:57 PM
+ *
+ */
 data class ArticleChapter(
-    var id:Int,
-    var courseId:Int,
-    var name:String,
-    var order:Int,
-    var parentChapterId:Int,
-    var userControlSetTop:Boolean,
-    var visible:Int
+    var id: Int,
+    var courseId: Int,
+    var name: String,
+    var order: Int,
+    var parentChapterId: Int,
+    var userControlSetTop: Boolean,
+    var visible: Int
 )
 
+/**
+ *
+ * @Description: 用户信息
+ * @Author: wanglejun
+ * @CreateDate：2020/9/24 11:57 PM
+ *
+ */
 data class UserInfo(
-    var userName:String,
-    var passwd:String
+    var userName: String,
+    var passwd: String
+)
+
+/**
+ *
+ * @Description: 首页 Banner
+ * @Author: wanglejun
+ * @CreateDate：2020/9/24 11:59 PM
+ *
+ */
+data class Banner(
+    var id: Int,
+    var desc: String,
+    var imagePath: String,
+    var isVisible: Int,
+    var order: Int,
+    var title: String,
+    var type: Int,
+    var url: String
 )

@@ -2,6 +2,7 @@ package com.cw.rdf.app.http
 
 import com.cw.rdf.app.model.ApiResponse
 import com.cw.rdf.app.model.ArticleChapter
+import com.cw.rdf.app.model.Banner
 import com.cw.rdf.app.model.UserInfo
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
@@ -42,6 +43,17 @@ interface ApiService {
     @POST("/user/register")
     suspend fun register(@Field("username") username:String,@Field("password") password:String,
                          @Field("repassword") repassword:String):ApiResponse<UserInfo>
+
+
+    /**
+     *
+     * @description 获取首页 banner
+     * @return
+     *
+     */
+    @GET("/banner/json")
+    suspend fun getBanner():ApiResponse<List<Banner>>
+
     /**
      *
      * @description 获取微信公众号列表

@@ -1,10 +1,7 @@
 package com.cw.rdf.app.di
 
-import com.cqrd.mrt.mcf.di.NAME_BASE_URL
-import com.cqrd.mrt.mcf.di.NAME_DEBUG
 import com.cw.rdf.app.vm.*
 import org.koin.androidx.viewmodel.dsl.viewModel
-import org.koin.core.qualifier.named
 import org.koin.dsl.module
 
 /**
@@ -18,10 +15,10 @@ val vmModule = module {
         MainVm(get())
     }
     viewModel {
-        IndexVm()
+        IndexVm(get())
     }
     viewModel {
-        ClassifyVm()
+        ArticleVm()
     }
     viewModel {
         ProjectVm()

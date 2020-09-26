@@ -15,20 +15,12 @@
         android:layout_height="match_parent"
         tools:context=".MainActivity">
 
-        <!--        <TextView-->
-        <!--            android:layout_width="wrap_content"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:text="@{vm.count}"-->
-        <!--            app:layout_constraintBottom_toBottomOf="parent"-->
-        <!--            app:layout_constraintLeft_toLeftOf="parent"-->
-        <!--            app:layout_constraintRight_toRightOf="parent"-->
-        <!--            app:layout_constraintTop_toTopOf="parent" />-->
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/bottom_tab_layout"
             android:layout_width="match_parent"
             android:layout_height="80dp"
-            android:background="#fff"
+            android:background="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:tabGravity="fill"
             app:tabIndicatorFullWidth="false"
@@ -37,8 +29,8 @@
             app:tabMaxWidth="0dp"
             app:tabMode="fixed"
             app:tabRippleColor="@android:color/transparent"
-            app:tabSelectedTextColor="#33CCFF"
-            app:tabTextColor="#000"/>
+            app:tabSelectedTextColor="@color/blue"
+            app:tabTextColor="@color/black"/>
 
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/main_viewpager2"
