@@ -1,8 +1,10 @@
 package com.cw.rdf.app.repository
 
 import com.cw.rdf.app.http.ApiService
+import com.cw.rdf.app.model.Article
 import com.cw.rdf.app.model.ArticleChapter
 import com.cw.rdf.app.model.Banner
+import com.cw.rdf.app.model.PageData
 
 /**
  * @Description:
@@ -11,11 +13,35 @@ import com.cw.rdf.app.model.Banner
  *
  */
 class DataRepository(private val apiService: ApiService) {
+
+    /**
+     *
+     * @description 获取公众号文章列表
+     * @return
+     *
+     */
     suspend fun getWXArticleChapters(): List<ArticleChapter>? {
         return apiService.getWXArticleChapters().data
     }
 
+    /**
+     *
+     * @description 获取首页 Banners
+     * @return
+     *
+     */
     suspend fun getBanners():List<Banner>?{
         return apiService.getBanner().data
+    }
+
+    /**
+     *
+     * @description 获取文章列表
+     * @param pageIndex 当前页码
+     * @return
+     *
+     */
+    suspend fun getArticleList(pageIndex:Int):PageData<List<Article>>?{
+        return apiService.getArticleList(pageIndex).data
     }
 }

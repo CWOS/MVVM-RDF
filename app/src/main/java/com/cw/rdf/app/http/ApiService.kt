@@ -1,13 +1,7 @@
 package com.cw.rdf.app.http
 
-import com.cw.rdf.app.model.ApiResponse
-import com.cw.rdf.app.model.ArticleChapter
-import com.cw.rdf.app.model.Banner
-import com.cw.rdf.app.model.UserInfo
-import retrofit2.http.Field
-import retrofit2.http.FormUrlEncoded
-import retrofit2.http.GET
-import retrofit2.http.POST
+import com.cw.rdf.app.model.*
+import retrofit2.http.*
 
 /**
  * @Description:
@@ -53,6 +47,10 @@ interface ApiService {
      */
     @GET("/banner/json")
     suspend fun getBanner():ApiResponse<List<Banner>>
+
+
+    @GET("/article/list/{pageIndex}/json")
+    suspend fun getArticleList(@Path("pageIndex") pageInde:Int):ApiResponse<PageData<List<Article>>>
 
     /**
      *

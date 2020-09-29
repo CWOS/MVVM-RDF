@@ -22,7 +22,7 @@ class IndexFragment:BaseBindingViewModelFragment<FragmentIndexBinding,IndexVm>()
         this.binding = binding
         binding.lifecycleOwner = this
         viewModel.getBanners()
-
+        viewModel.getArticle(1)
         adapter = SimpleBindingAdapter(R.layout.item_banner_index)
         viewModel.banners.observe(this, Observer {
             adapter.data = it
