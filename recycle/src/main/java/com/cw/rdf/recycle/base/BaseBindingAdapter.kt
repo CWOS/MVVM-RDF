@@ -33,7 +33,7 @@ abstract class BaseBindingAdapter<T:Any,BINDING:ViewDataBinding>():RecyclerView.
             //如果是ObservableList则为其添加changeCallback
             if(data is ObservableList<*>){
                 if(observabListChanageListener == null){
-                    observabListChanageListener = ObserverListChangeListener<T>(this)
+                    observabListChanageListener = ObserverListChangeListener(this)
                 }
                 (data as ObservableList<T>).removeOnListChangedCallback(observabListChanageListener)
                 data.addOnListChangedCallback(observabListChanageListener)

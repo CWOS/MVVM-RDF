@@ -27,3 +27,5 @@ class ViewModelEvent<T>(private val value: T) {
 const val EVENT_BACK = 0xff
 //点击事件
 const val EVENT_CLICK = 0x100
+//列表 item 点击事件
+const val EVENT_ITEM_CLICK = 0x101

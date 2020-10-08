@@ -10,10 +10,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".MainActivity">
+        android:layout_height="match_parent">
 
 
         <LinearLayout
@@ -34,12 +32,14 @@
                 android:textSize="16dp" />
         </LinearLayout>
 
-        <androidx.viewpager2.widget.ViewPager2
-            android:id="@+id/main_viewpager2"
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/index_recycler"
             android:layout_width="match_parent"
-            android:layout_height="150dp"
-            android:orientation="horizontal"
+            android:layout_height="0dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@id/title_layout"
-           />
+            app:verticalSpace="@{@dimen/dp2}" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

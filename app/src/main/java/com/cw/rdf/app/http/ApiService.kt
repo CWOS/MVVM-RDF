@@ -49,8 +49,15 @@ interface ApiService {
     suspend fun getBanner():ApiResponse<List<Banner>>
 
 
+    /**
+     *
+     * @description 获取首页文章列表
+     * @param
+     * @return
+     *
+     */
     @GET("/article/list/{pageIndex}/json")
-    suspend fun getArticleList(@Path("pageIndex") pageInde:Int):ApiResponse<PageData<List<Article>>>
+    suspend fun getArticleList(@Path("pageIndex") pageIndex:Int):ApiResponse<PageData<List<Article>>>
 
     /**
      *

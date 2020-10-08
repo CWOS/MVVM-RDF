@@ -2,7 +2,7 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
-//apply plugin: 'com.novoda.bintray-release'
+apply plugin: 'com.novoda.bintray-release'
 
 android {
     compileSdkVersion versions.compile_sdk_version
@@ -11,8 +11,8 @@ android {
     defaultConfig {
         minSdkVersion versions.min_sdk_version
         targetSdkVersion versions.target_sdk_version
-        versionCode 1
-        versionName "1.0"
+        versionCode 3
+        versionName "0.0.3"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
@@ -70,13 +70,13 @@ dependencies {
     api "javax.inject:javax.inject:1"
 }
 
-//publish {
-//    repoName = 'rdf'//仓库名
-//    userOrg = 'wanglj0925'//用户名
-//    groupId = 'com.cw.rdf'//生成的gradle依赖前缀。
-//    artifactId = 'core'//项目名
-//    publishVersion = '0.0.2' //版本号
-//    desc = 'rapid development framework' //描述
-//    website = 'https://github.com/CWOS/MVVM-RDF'
-//    repository = 'https://github.com/CWOS/MVVM-RDF.git'
-//}
+publish {
+    repoName = 'rdf'//仓库名
+    userOrg = 'wanglj0925'//用户名
+    groupId = 'com.cw.rdf'//生成的gradle依赖前缀。
+    artifactId = 'core'//项目名
+    publishVersion = '0.0.3' //版本号
+    desc = 'rapid development framework' //描述
+    website = 'https://github.com/CWOS/MVVM-RDF'
+    repository = 'https://github.com/CWOS/MVVM-RDF.git'
+}
