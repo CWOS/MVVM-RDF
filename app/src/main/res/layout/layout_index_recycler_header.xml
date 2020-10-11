@@ -13,7 +13,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="150dp"
-        android:background="#fff">
+        >
 
 
         <androidx.viewpager2.widget.ViewPager2
@@ -21,7 +21,10 @@
             android:layout_width="match_parent"
             android:layout_height="150dp"
             android:orientation="horizontal"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:data="@{vm.banners}"
+            app:itemLayout="@{@layout/item_banner_index}"
+            app:itemEventHandler="@{vm}"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

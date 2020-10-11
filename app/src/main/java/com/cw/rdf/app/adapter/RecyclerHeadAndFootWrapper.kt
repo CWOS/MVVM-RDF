@@ -1,11 +1,7 @@
 package com.cw.rdf.app.adapter
 
-import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import androidx.annotation.LayoutRes
 import androidx.collection.SparseArrayCompat
-import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
 import com.cw.rdf.recycle.base.BaseBindingAdapter
@@ -19,34 +15,30 @@ import com.cw.rdf.recycle.base.BindingViewHolder
  *
  */
 class RecyclerHeadAndFootWrapper<T : Any, BINDING : ViewDataBinding>(val innerAdapter: BaseBindingAdapter<T, BINDING>) :
-    RecyclerView.Adapter<BindingViewHolder<T,BINDING>>() {
+    RecyclerView.Adapter<BindingViewHolder<T, BINDING>>() {
     private val BASE_ITEM_TYPE_HEADER = 100000
     private val BASE_ITEM_TYPE_FOOTER = 200000
-    private val headerViews: SparseArrayCompat<Int> = SparseArrayCompat()
-    private val footViews: SparseArrayCompat<Int> = SparseArrayCompat()
+    private val headerViews: SparseArrayCompat<BINDING> = SparseArrayCompat()
+    private val footViews: SparseArrayCompat<BINDING> = SparseArrayCompat()
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): BindingViewHolder<T,BINDING> {
-        if (headerViews.get(viewType) != null){
-            val headerViewBinding = DataBindingUtil.inflate<BINDING>(LayoutInflater.from(parent.context),
-                headerViews.get(viewType)!!,parent,false)
-            return BindingViewHolder(headerViewBinding)
+    ): BindingViewHolder<T, BINDING> {
+        if (headerViews.get(viewType) != null) {
+            return BindingViewHolder(headerViews.get(viewType)!!)
         }
 
-        if(footViews.get(viewType)!=null){
-            val footViewBinding = DataBindingUtil.inflate<BINDING>(LayoutInflater.from(parent.context),
-                footViews.get(viewType)!!,parent,false)
-            return BindingViewHolder(footViewBinding)
+        if (footViews.get(viewType) != null) {
+            return BindingViewHolder(headerViews.get(viewType)!!)
         }
         return innerAdapter.onCreateViewHolder(parent, viewType)
     }
 
-    override fun onBindViewHolder(holder: BindingViewHolder<T,BINDING>, position: Int) {
-        if(isHeaderViewPos(position)){
+    override fun onBindViewHolder(holder: BindingViewHolder<T, BINDING>, position: Int) {
+        if (isHeaderViewPos(position)) {
             return
         }
-        if(isFooterViewPos(position)){
+        if (isFooterViewPos(position)) {
             return
         }
         innerAdapter.onBindViewHolder(holder, position - getHeadersCount())
@@ -85,13 +77,13 @@ class RecyclerHeadAndFootWrapper<T : Any, BINDING : ViewDataBinding>(val innerAd
         return position > getFootersCount() + getRealItemCount()
     }
 
-    fun addHeaderView(@LayoutRes layoutRes: Int) {
-        headerViews.put(BASE_ITEM_TYPE_HEADER + headerViews.size(), layoutRes)
+    fun addHeaderView(headerViewBinding: BINDING) {
+        headerViews.put(BASE_ITEM_TYPE_HEADER + headerViews.size(), headerViewBinding)
         notifyDataSetChanged()
     }
 
-    fun addFooterView(@LayoutRes footView: Int) {
-        footViews.put(BASE_ITEM_TYPE_FOOTER + footViews.size(), footView)
+    fun addFooterView(footViewBinding: BINDING) {
+        footViews.put(BASE_ITEM_TYPE_FOOTER + footViews.size(), footViewBinding)
     }
 
     override fun onAttachedToRecyclerView(recyclerView: RecyclerView) {

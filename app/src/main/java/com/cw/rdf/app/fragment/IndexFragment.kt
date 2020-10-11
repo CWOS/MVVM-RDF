@@ -30,28 +30,33 @@ import kotlin.coroutines.Continuation
 class IndexFragment:BaseBindingViewModelFragment<FragmentIndexBinding,IndexVm>() {
     private  val TAG = "IndexFragment"
     private lateinit var binding: FragmentIndexBinding
-    private lateinit var adapter: SimpleBindingAdapter
+    private lateinit var bannerAdapter: SimpleBindingAdapter
     @SuppressLint("WrongConstant")
     override fun initDataBinding(binding: FragmentIndexBinding) {
         super.initDataBinding(binding)
         this.binding = binding
         binding.lifecycleOwner = this
+
         viewModel.getBanners()
         viewModel.getArticle(1)
 
-        adapter = SimpleBindingAdapter(R.layout.item_banner_index)
+        bannerAdapter = SimpleBindingAdapter(R.layout.item_banner_index)
 
         val headerViewBinding = DataBindingUtil.inflate<LayoutIndexRecyclerHeaderBinding>(LayoutInflater.from(context),R.layout.layout_index_recycler_header,binding.indexRecycler,false)
-        viewModel.banners.observe(this, Observer {
-            adapter.data = it
-            headerViewBinding.mainViewpager2.adapter = adapter
-        })
+        headerViewBinding.vm = viewModel
+//        viewModel.banners.observe(this, Observer {
+//
+//            bannerAdapter.data = it
+//            bannerAdapter.itemEventHandler = viewModel
+//            headerViewBinding.mainViewpager2.adapter = bannerAdapter
+//
+//        })
 
         viewModel.articleList.observe(this, Observer {
             val indexAdapter = SimpleBindingAdapter(R.layout.item_recycler_index)
             indexAdapter.data = it
             val headAndFootWrapper = RecyclerHeadAndFootWrapper(indexAdapter as BaseBindingAdapter<Any, ViewDataBinding>)
-            headAndFootWrapper.addHeaderView(R.layout.layout_index_recycler_header)
+            headAndFootWrapper.addHeaderView(headerViewBinding)
 
             binding.indexRecycler.adapter = headAndFootWrapper
         })
