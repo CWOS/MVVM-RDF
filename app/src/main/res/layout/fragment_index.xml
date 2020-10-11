@@ -40,6 +40,6 @@
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@id/title_layout"
-            app:verticalSpace="@{@dimen/dp2}" />
+            app:verticalSpace="@{@dimen/dp1}" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -18,15 +18,15 @@ val vmModule = module {
         IndexVm(get())
     }
     viewModel {
-        ArticleVm()
+        ArticleVm(get())
     }
     viewModel {
-        ProjectVm()
+        ProjectVm(get())
     }
     viewModel {
-        ToDoVm()
+        ToDoVm(get())
     }
     viewModel {
-        MineVm()
+        MineVm(get())
     }
 }

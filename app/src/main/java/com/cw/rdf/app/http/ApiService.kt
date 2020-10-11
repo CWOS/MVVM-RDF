@@ -52,12 +52,23 @@ interface ApiService {
     /**
      *
      * @description 获取首页文章列表
-     * @param
+     * @param pageIndex 页码
      * @return
      *
      */
     @GET("/article/list/{pageIndex}/json")
-    suspend fun getArticleList(@Path("pageIndex") pageIndex:Int):ApiResponse<PageData<List<Article>>>
+    suspend fun getIndexArticleList(@Path("pageIndex") pageIndex:Int):ApiResponse<PageData<List<Article>>>
+
+
+    /**
+     *
+     * @description 获取广场文章列表
+     * @param pageIndex 页码
+     * @return
+     *
+     */
+    @GET("/user_article/list/{pageIndex}/json")
+    suspend fun getMaidanArticleList(@Path("pageIndex") pageIndex: Int):ApiResponse<PageData<List<Article>>>
 
     /**
      *

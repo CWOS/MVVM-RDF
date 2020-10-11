@@ -1,5 +1,6 @@
 package com.cw.rdf.app.repository
 
+import android.graphics.pdf.PdfDocument
 import com.cw.rdf.app.http.ApiService
 import com.cw.rdf.app.model.Article
 import com.cw.rdf.app.model.ArticleChapter
@@ -36,12 +37,23 @@ class DataRepository(private val apiService: ApiService) {
 
     /**
      *
-     * @description 获取文章列表
+     * @description 获取首页文章列表
      * @param pageIndex 当前页码
      * @return
      *
      */
-    suspend fun getArticleList(pageIndex:Int):PageData<List<Article>>?{
-        return apiService.getArticleList(pageIndex).data
+    suspend fun getIndexArticleList(pageIndex:Int):PageData<List<Article>>?{
+        return apiService.getIndexArticleList(pageIndex).data
+    }
+
+    /**
+     *
+     * @description 获取广场文章列表
+     * @param pageIndex 当前页码
+     * @return
+     *
+     */
+    suspend fun getMaidanArticleList(pageIndex:Int):PageData<List<Article>>?{
+        return apiService.getMaidanArticleList(pageIndex).data
     }
 }

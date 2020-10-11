@@ -99,6 +99,7 @@ data class Article(
     var publishTime: Long,
     var realSuperChapterId: Int? = 0,
     var shareDate: Long,
+    var shareUser: String,
     var title: String,
     var type: Int? = 0,
     var userId: Int? = 0

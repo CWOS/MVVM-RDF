@@ -28,6 +28,6 @@ class IndexVm(private val dataRepository: DataRepository):BaseViewModel() {
     }
 
     fun getArticle(pageIndex:Int) = launch {
-        articleList.value = dataRepository.getArticleList(pageIndex)?.datas
+        articleList.value = dataRepository.getIndexArticleList(pageIndex)?.datas
     }
 }

@@ -1,12 +1,7 @@
 package com.cw.rdf.app.fragment
 
 import android.annotation.SuppressLint
-import android.app.UiModeManager
-import android.content.Context
-import android.content.res.Configuration
-import android.util.Log
 import android.view.LayoutInflater
-import androidx.appcompat.app.AppCompatDelegate
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.Observer
@@ -14,12 +9,10 @@ import com.cw.rdf.app.R
 import com.cw.rdf.app.adapter.RecyclerHeadAndFootWrapper
 import com.cw.rdf.app.databinding.FragmentIndexBinding
 import com.cw.rdf.app.databinding.LayoutIndexRecyclerHeaderBinding
-import com.cw.rdf.app.di.vmModule
 import com.cw.rdf.app.vm.IndexVm
 import com.cw.rdf.core.base.BaseBindingViewModelFragment
 import com.cw.rdf.recycle.base.BaseBindingAdapter
 import com.cw.rdf.recycle.base.SimpleBindingAdapter
-import kotlin.coroutines.Continuation
 
 /**
  * @Description:首页
@@ -53,7 +46,7 @@ class IndexFragment:BaseBindingViewModelFragment<FragmentIndexBinding,IndexVm>()
 //        })
 
         viewModel.articleList.observe(this, Observer {
-            val indexAdapter = SimpleBindingAdapter(R.layout.item_recycler_index)
+            val indexAdapter = SimpleBindingAdapter(R.layout.item_recycler_article)
             indexAdapter.data = it
             val headAndFootWrapper = RecyclerHeadAndFootWrapper(indexAdapter as BaseBindingAdapter<Any, ViewDataBinding>)
             headAndFootWrapper.addHeaderView(headerViewBinding)
