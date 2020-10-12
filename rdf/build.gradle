@@ -23,6 +23,12 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
+    dataBinding.enabled true
+    compileOptions {
+        sourceCompatibility = '1.8'
+        targetCompatibility = '1.8'
+    }
 }
 
 repositories {
@@ -40,8 +46,11 @@ dependencies {
     androidTestImplementation "androidx.test.ext:junit:$versions.androidx_test_ext_junit"
     androidTestImplementation "androidx.test.espresso:espresso-core:$versions.androidx_test_espresso_core"
 
-    api 'com.cw.rdf:core:0.0.2'
-    api 'com.cw.rdf:recycle:0.0.1'
+//    api 'com.cw.rdf:core:0.0.2'
+//    api 'com.cw.rdf:recycle:0.0.1'
+    implementation project(':core')
+    implementation project(':recycle')
+
 
 }
 

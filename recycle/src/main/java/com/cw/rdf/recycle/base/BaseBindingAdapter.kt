@@ -15,24 +15,30 @@ import com.cw.rdf.recycle.listener.ObserverListChangeListener
  * @CreateDate： 2020/9/15 9:44 AM
  *
  */
-abstract class BaseBindingAdapter<T:Any,BINDING:ViewDataBinding>():RecyclerView.Adapter<BindingViewHolder<T,BINDING>>() {
+abstract class BaseBindingAdapter<T : Any, BINDING : ViewDataBinding>() :
+    RecyclerView.Adapter<BindingViewHolder<T, BINDING>>() {
 
     //item 按下监听
-    var itemClickListener : OnItemClickListener<T>? = null
-    //observer 数据变化监听
-    private var observabListChanageListener : ObserverListChangeListener<T>? = null
-    //ViewType 构建器
-    var itemViewTypeCreator : ItemViewTypeCreator? = null
-    var itemEventHandler : Any? = null
+    var itemClickListener: OnItemClickListener<T>? = null
 
-    var data : List<T>? = null
+    //item 长按监听
+    var itemLongClickListener: OnItemLongClickListener<T>? = null
+
+    //observer 数据变化监听
+    private var observabListChanageListener: ObserverListChangeListener<T>? = null
+
+    //ViewType 构建器
+    var itemViewTypeCreator: ItemViewTypeCreator? = null
+    var itemEventHandler: Any? = null
+
+    var data: List<T>? = null
         set(data) {
             field = data
             notifyDataSetChanged()
 
             //如果是ObservableList则为其添加changeCallback
-            if(data is ObservableList<*>){
-                if(observabListChanageListener == null){
+            if (data is ObservableList<*>) {
+                if (observabListChanageListener == null) {
                     observabListChanageListener = ObserverListChangeListener(this)
                 }
                 (data as ObservableList<T>).removeOnListChangedCallback(observabListChanageListener)
@@ -41,7 +47,7 @@ abstract class BaseBindingAdapter<T:Any,BINDING:ViewDataBinding>():RecyclerView.
         }
 
     @get:LayoutRes
-    abstract val layoutRes : Int
+    abstract val layoutRes: Int
 
     fun getItem(position: Int): T? {
         return data?.getOrNull(position)
@@ -52,10 +58,15 @@ abstract class BaseBindingAdapter<T:Any,BINDING:ViewDataBinding>():RecyclerView.
         viewType: Int
     ): BindingViewHolder<T, BINDING> {
         val layout = itemViewTypeCreator?.getItemLayout(viewType) ?: layoutRes
-        val binding = DataBindingUtil.inflate<BINDING>(LayoutInflater.from(parent.context),layout,parent,false)
-        val holder = BindingViewHolder<T,BINDING>(binding)
+        val binding = DataBindingUtil.inflate<BINDING>(
+            LayoutInflater.from(parent.context),
+            layout,
+            parent,
+            false
+        )
+        val holder = BindingViewHolder<T, BINDING>(binding)
         binding.lifecycleOwner = holder
-        bindClick(holder,binding)
+        bindClick(holder, binding)
         return holder
     }
 
@@ -69,8 +80,10 @@ abstract class BaseBindingAdapter<T:Any,BINDING:ViewDataBinding>():RecyclerView.
     }
 
     override fun getItemViewType(position: Int): Int {
-        return itemViewTypeCreator?.getItemViewType(position,getItem(position)) ?: super.getItemViewType(position)
+        return itemViewTypeCreator?.getItemViewType(position, getItem(position))
+            ?: super.getItemViewType(position)
     }
+
 
     /**
      *
@@ -80,10 +93,16 @@ abstract class BaseBindingAdapter<T:Any,BINDING:ViewDataBinding>():RecyclerView.
      * @return
      *
      */
-    protected fun bindClick(holder: BindingViewHolder<*, *>,binding: BINDING){
+     open fun bindClick(holder: BindingViewHolder<*, *>, binding: BINDING) {
         binding.root.setOnClickListener {
             val position = holder.layoutPosition
-            itemClickListener?.onItemClick(getItem(position),position)
+            itemClickListener?.onItemClick(getItem(position), position)
+        }
+
+        binding.root.setOnLongClickListener{
+            val position = holder.layoutPosition
+            itemLongClickListener?.onItemLongClick(getItem(position), position)
+            return@setOnLongClickListener true
         }
     }
 
@@ -97,8 +116,24 @@ abstract class BaseBindingAdapter<T:Any,BINDING:ViewDataBinding>():RecyclerView.
         holder.onDetah()
     }
 
-    interface OnItemClickListener<T>{
-        fun onItemClick(t:T?,position: Int)
+    /**
+     *
+     * @Description:item 按下监听
+     *
+     */
+    interface OnItemClickListener<T> {
+        fun onItemClick(t: T?, position: Int)
+    }
+
+    /**
+     *
+     * @Description:item 长按监听
+     * @Author: wanglejun
+     * @CreateDate：2020/10/12 4:36 PM
+     *
+     */
+    interface OnItemLongClickListener<T> {
+        fun onItemLongClick(t: T?, position: Int)
     }
 
     /**
@@ -106,8 +141,8 @@ abstract class BaseBindingAdapter<T:Any,BINDING:ViewDataBinding>():RecyclerView.
      * @Description: ViewType 构建器 ，多种布局类型 RecycleView 实现此接口
      *
      */
-    interface ItemViewTypeCreator{
-        fun getItemViewType(position: Int,item:Any?):Int
-        fun getItemLayout(viewType:Int):Int
+    interface ItemViewTypeCreator {
+        fun getItemViewType(position: Int, item: Any?): Int
+        fun getItemLayout(viewType: Int): Int
     }
 }

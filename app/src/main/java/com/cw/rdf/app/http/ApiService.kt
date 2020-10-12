@@ -70,6 +70,27 @@ interface ApiService {
     @GET("/user_article/list/{pageIndex}/json")
     suspend fun getMaidanArticleList(@Path("pageIndex") pageIndex: Int):ApiResponse<PageData<List<Article>>>
 
+
+    /**
+     *
+     * @description 获取项目分类
+     * @return 项目分类列表
+     *
+     */
+    @GET("/project/tree/json")
+    suspend fun getProjectTree():ApiResponse<List<ProjectTree>>
+
+
+    /**
+     *
+     * @description 获取项目分类下项目列表
+     * @param
+     * @return
+     *
+     */
+    @GET("/project/list/{pageIndex}/json")
+    suspend fun getProjects(@Path("pageIndex") pageIndex:Int,@Query("cid") cid:Int):ApiResponse<PageData<List<Project>>>
+
     /**
      *
      * @description 获取微信公众号列表

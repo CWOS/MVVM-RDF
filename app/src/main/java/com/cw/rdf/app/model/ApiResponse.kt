@@ -104,3 +104,32 @@ data class Article(
     var type: Int? = 0,
     var userId: Int? = 0
 )
+
+/**
+ *
+ * @Description:项目分类
+ * @Author: wanglejun
+ * @CreateDate：2020/10/12 11:18 PM
+ *
+ */
+data class ProjectTree(
+    var courseId: Int,
+    var id: Int,
+    var name: String,
+    var order: Long,
+    var parentChapterId: Int,
+    var visible: Int,
+    var isSelect:Boolean
+)
+
+data class Project(
+    var author:String,
+    var chapterId:Int,
+    var courseId:Int,
+    var desc:String,
+    var envelopePic:String,
+    var id:Int,
+    var link:String,
+    var niceDate:String,
+    var title:String
+)

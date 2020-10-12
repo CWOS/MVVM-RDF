@@ -2,10 +2,7 @@ package com.cw.rdf.app.repository
 
 import android.graphics.pdf.PdfDocument
 import com.cw.rdf.app.http.ApiService
-import com.cw.rdf.app.model.Article
-import com.cw.rdf.app.model.ArticleChapter
-import com.cw.rdf.app.model.Banner
-import com.cw.rdf.app.model.PageData
+import com.cw.rdf.app.model.*
 
 /**
  * @Description:
@@ -31,7 +28,7 @@ class DataRepository(private val apiService: ApiService) {
      * @return
      *
      */
-    suspend fun getBanners():List<Banner>?{
+    suspend fun getBanners(): List<Banner>? {
         return apiService.getBanner().data
     }
 
@@ -42,7 +39,7 @@ class DataRepository(private val apiService: ApiService) {
      * @return
      *
      */
-    suspend fun getIndexArticleList(pageIndex:Int):PageData<List<Article>>?{
+    suspend fun getIndexArticleList(pageIndex: Int): PageData<List<Article>>? {
         return apiService.getIndexArticleList(pageIndex).data
     }
 
@@ -53,7 +50,28 @@ class DataRepository(private val apiService: ApiService) {
      * @return
      *
      */
-    suspend fun getMaidanArticleList(pageIndex:Int):PageData<List<Article>>?{
+    suspend fun getMaidanArticleList(pageIndex: Int): PageData<List<Article>>? {
         return apiService.getMaidanArticleList(pageIndex).data
+    }
+
+    /**
+     *
+     * @description 获取项目分类
+     * @return 项目分类列表
+     *
+     */
+    suspend fun getProjectTree(): List<ProjectTree>? {
+        return apiService.getProjectTree().data
+    }
+
+    /**
+     *
+     * @description 获取项目分类下项目列表
+     * @param
+     * @return
+     *
+     */
+    suspend fun getProjects(pageIndex: Int, cid: Int): PageData<List<Project>>? {
+        return apiService.getProjects(pageIndex, cid).data
     }
 }
