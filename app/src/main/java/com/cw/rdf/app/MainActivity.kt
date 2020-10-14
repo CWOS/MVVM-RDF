@@ -1,8 +1,5 @@
 package com.cw.rdf.app
 
-import android.content.res.Configuration
-import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import com.cw.rdf.app.databinding.ActivityMainBinding
 import com.cw.rdf.app.fragment.*

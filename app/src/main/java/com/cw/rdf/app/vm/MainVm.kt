@@ -12,7 +12,6 @@ import com.cw.rdf.core.base.BaseViewModel
  *
  */
 class MainVm(private val dataRepository: DataRepository):BaseViewModel() {
-    val count = MutableLiveData<String>("999")
     val articleChapters = MutableLiveData<List<ArticleChapter>>()
     fun getWXArticleChapters() = launch {
         articleChapters.value = dataRepository.getWXArticleChapters()

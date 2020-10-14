@@ -29,9 +29,9 @@ class ProjectFragment : BaseBindingViewModelFragment<FragmentProjectBinding, Pro
                 object : BaseBindingAdapter.OnItemClickListener<Any> {
                     override fun onItemClick(t: Any?, position: Int) {
 
-                        viewModel.projectTreeList.value?.let {
-                            viewModel.getProjects(0, it.get(position).id)
-                            it.get(position).isSelect = true
+                        viewModel.projectTreeList.value?.let {it2->
+                            viewModel.getProjects(0, it2[position].id)
+                            it2[position].isSelect = true
                         }
                         for (index in viewModel.projectTreeList.value!!.indices) {
                             if (index != position) {
