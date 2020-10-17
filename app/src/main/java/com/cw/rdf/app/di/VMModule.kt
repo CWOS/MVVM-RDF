@@ -29,4 +29,7 @@ val vmModule = module {
     viewModel {
         MineVm(get())
     }
+    viewModel {
+        LoginVm(get())
+    }
 }

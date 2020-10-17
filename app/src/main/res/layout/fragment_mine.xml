@@ -3,6 +3,9 @@
 
     <data>
 
+        <variable
+            name="fragment"
+            type="com.cw.rdf.app.fragment.MineFragment" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -42,7 +45,8 @@
             android:layout_width="match_parent"
             android:layout_height="80dp"
             android:orientation="horizontal"
-            app:layout_constraintTop_toBottomOf="@id/top_line">
+            app:layout_constraintTop_toBottomOf="@id/top_line"
+            android:onClick="@{()->fragment.navToLogin()}">
 
             <ImageView
                 android:layout_width="50dp"

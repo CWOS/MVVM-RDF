@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_home"
+    app:startDestination="@id/mainFragment">
+
+    <fragment
+        android:id="@+id/mainFragment"
+        android:name="com.cw.rdf.app.fragment.MainFragment"
+        android:label="MainFragment"
+        tools:layout="@layout/fragment_main">
+        <action
+            android:id="@+id/action_mainFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/indexFragment"
+        android:name="com.cw.rdf.app.fragment.IndexFragment"
+        android:label="IndexFragment" />
+    <fragment
+        android:id="@+id/articleFragment"
+        android:name="com.cw.rdf.app.fragment.ArticleFragment"
+        android:label="ArticleFragment" />
+    <fragment
+        android:id="@+id/projectFragment"
+        android:name="com.cw.rdf.app.fragment.ProjectFragment"
+        android:label="ProjectFragment" />
+    <fragment
+        android:id="@+id/todoFragment"
+        android:name="com.cw.rdf.app.fragment.TodoFragment"
+        android:label="TodoFragment" />
+    <fragment
+        android:id="@+id/mineFragment"
+        android:name="com.cw.rdf.app.fragment.MineFragment"
+        android:label="MineFragment" />
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.cw.rdf.app.fragment.LoginFragment"
+        android:label="LoginFragment"
+        tools:layout="@layout/fragment_login"/>
+</navigation>

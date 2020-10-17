@@ -16,28 +16,37 @@
         tools:context=".MainActivity">
 
 
-        <com.google.android.material.tabs.TabLayout
-            android:id="@+id/bottom_tab_layout"
-            android:layout_width="match_parent"
-            android:layout_height="80dp"
-            android:background="@color/white"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:tabGravity="fill"
-            app:tabIndicatorFullWidth="false"
-            app:tabIndicatorGravity="center"
-            app:tabIndicatorHeight="0dp"
-            app:tabMaxWidth="0dp"
-            app:tabMode="fixed"
-            app:tabRippleColor="@android:color/transparent"
-            app:tabSelectedTextColor="@color/blue"
-            app:tabTextColor="@color/black"/>
+<!--        <com.google.android.material.tabs.TabLayout-->
+<!--            android:id="@+id/bottom_tab_layout"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="80dp"-->
+<!--            android:background="@color/white"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:tabGravity="fill"-->
+<!--            app:tabIndicatorFullWidth="false"-->
+<!--            app:tabIndicatorGravity="center"-->
+<!--            app:tabIndicatorHeight="0dp"-->
+<!--            app:tabMaxWidth="0dp"-->
+<!--            app:tabMode="fixed"-->
+<!--            app:tabRippleColor="@android:color/transparent"-->
+<!--            app:tabSelectedTextColor="@color/blue"-->
+<!--            app:tabTextColor="@color/black" />-->
 
-        <androidx.viewpager2.widget.ViewPager2
-            android:id="@+id/main_viewpager2"
+<!--        <androidx.viewpager2.widget.ViewPager2-->
+<!--            android:id="@+id/main_viewpager2"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="0dp"-->
+<!--            android:orientation="horizontal"-->
+<!--            app:layout_constraintBottom_toTopOf="@id/bottom_tab_layout"-->
+<!--            app:layout_constraintTop_toTopOf="parent" />-->
+
+        <fragment
+            android:id="@+id/nav_host_fragment"
+            android:name="androidx.navigation.fragment.NavHostFragment"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:orientation="horizontal"
-            app:layout_constraintBottom_toTopOf="@id/bottom_tab_layout"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_height="match_parent"
+            app:defaultNavHost="true"
+            app:navGraph="@navigation/nav_home" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
