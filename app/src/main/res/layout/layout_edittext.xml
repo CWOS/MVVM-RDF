@@ -25,33 +25,27 @@
             android:textColor="@color/black"
             android:textSize="16dp" />
 
-        <ImageView
-            android:id="@+id/clear_image"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="50dp"
-            android:background="@mipmap/icon_clear" />
 
-        <EditText
+        <com.cw.rdf.app.view.ClearEditText
             android:id="@+id/content_edit"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_centerVertical="true"
             android:layout_marginLeft="30dp"
-            android:layout_toLeftOf="@id/clear_image"
+            android:layout_marginRight="30dp"
             android:layout_toRightOf="@id/title_text"
             android:background="@null"
             android:hint="请输入账号"
+            android:singleLine="true"
             android:textColor="@color/black"
             android:textSize="16dp" />
 
         <View
+            android:id="@+id/bottom_line"
             android:layout_width="match_parent"
             android:layout_height="1px"
             android:layout_below="@id/content_edit"
-            android:background="@color/gray" />
+            android:background="@color/gray1" />
 
 
     </RelativeLayout>
