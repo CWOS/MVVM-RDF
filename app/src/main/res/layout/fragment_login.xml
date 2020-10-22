@@ -13,6 +13,7 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:rdf="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -35,8 +36,9 @@
             android:layout_marginTop="30dp"
             android:text="@string/login"
             android:textColor="@color/black"
-            android:textSize="42dp"
-            app:layout_constraintLeft_toLeftOf="@id/close_image"
+            android:textSize="38dp"
+            rdf:layout_constraintStart_toStartOf="parent"
+            rdf:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/close_image" />
 
 
@@ -44,17 +46,45 @@
             android:id="@+id/username_inputview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
             android:layout_marginTop="50dp"
+            android:layout_marginRight="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/lable_text" />
+            app:layout_constraintTop_toBottomOf="@id/lable_text"
+            rdf:hint="@string/edit_hint_username"
+            rdf:title="@string/username"
+            rdf:titleTextSize="16dp"
+            rdf:contentTextSize="16dp"
+            rdf:contentText="@={vm.userName}"/>
 
         <com.cw.rdf.app.view.InputView
+            android:id="@+id/passwd_inputview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
             android:layout_marginTop="20dp"
+            android:layout_marginRight="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/username_inputview" />
+            app:layout_constraintTop_toBottomOf="@id/username_inputview"
+            rdf:hint="@string/edit_hint_passwd"
+            rdf:title="@string/passwd"
+            rdf:titleTextSize="16dp"
+            rdf:contentTextSize="16dp"
+            rdf:contentText="@={vm.passwd}"/>
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/passwd_inputview"
+            app:layout_constraintLeft_toLeftOf="@id/passwd_inputview"
+            app:layout_constraintRight_toRightOf="@id/passwd_inputview"
+            android:layout_marginTop="20dp"
+            android:background="@color/blue"
+            android:text="@string/login"
+            android:textSize="16dp"
+            android:textColor="@color/white"
+            android:onClick="@{()->vm.login()}"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

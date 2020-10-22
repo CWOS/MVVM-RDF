@@ -12,6 +12,11 @@ import com.cw.rdf.app.model.*
  */
 class DataRepository(private val apiService: ApiService) {
 
+
+    suspend fun login(userName: String, passwd: String): UserInfo? {
+        return apiService.login(userName, passwd).data
+    }
+
     /**
      *
      * @description 获取公众号文章列表

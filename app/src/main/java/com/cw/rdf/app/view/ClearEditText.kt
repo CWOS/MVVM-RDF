@@ -39,6 +39,7 @@ class ClearEditText : AppCompatEditText, View.OnFocusChangeListener, TextWatcher
     }
 
     fun init() {
+        //未设置使用默认清除图标
         clearDrawable = compoundDrawables[2]
         if (clearDrawable == null) {
             clearDrawable = resources.getDrawable(R.mipmap.icon_clear)
