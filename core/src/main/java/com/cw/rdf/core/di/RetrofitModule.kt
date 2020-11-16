@@ -1,24 +1,21 @@
 package com.cqrd.mrt.mcf.di
 
 
-import android.app.Application
 import android.content.Context
 import com.cw.rdf.core.ext.converterFactory
 import com.cw.rdf.core.ext.getConverterFactory
 import com.cw.rdf.core.ext.getInterceptor
 import com.cw.rdf.core.ext.interceptor
 import com.cw.rdf.core.http.DefaultHttpExceptionHandler
-import com.cw.rdf.core.http.HttpCookieJar
+import com.cw.rdf.core.http.cookie.HttpCookieJar
 import com.cw.rdf.core.http.RetrofitConfig
 import com.google.gson.Gson
 import okhttp3.CookieJar
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
-import okhttp3.Response
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
-import org.koin.java.KoinJavaComponent.inject
 import retrofit2.Converter
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory

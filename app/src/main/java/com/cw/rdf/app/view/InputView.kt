@@ -4,7 +4,6 @@ import android.content.Context
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.AttributeSet
-import android.util.Log
 import android.view.LayoutInflater
 import android.widget.RelativeLayout
 import androidx.databinding.DataBindingUtil
@@ -110,8 +109,6 @@ class InputView : RelativeLayout {
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                Log.d("test", "onTextChanged ======");
-
                 textChangeListener?.let {
                     it.onChange()
                 }

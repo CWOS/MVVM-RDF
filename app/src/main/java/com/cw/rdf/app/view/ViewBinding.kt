@@ -1,10 +1,8 @@
 package com.cw.rdf.app.view
 
-import android.util.Log
 import androidx.databinding.BindingAdapter
 import androidx.databinding.InverseBindingAdapter
 import androidx.databinding.InverseBindingListener
-import androidx.lifecycle.MutableLiveData
 
 /**
  * @Description:
@@ -13,26 +11,25 @@ import androidx.lifecycle.MutableLiveData
  *
  */
 
+/***********InputView 双向数据绑定**************/
 @BindingAdapter("contentText")
-fun setInputViewContent(inputView: InputView,contentText:String){
-    if(inputView.contentText.trim() == contentText.trim()){
-        return
-    }
-    inputView.contentText = contentText
-}
-
-@InverseBindingAdapter(attribute = "contentText",event = "textAttrChanged")
-fun getInputViewContent(inputView: InputView):String{
+//fun setInputViewContent(inputView: InputView, contentText: String) {
+//    if (inputView.contentText.trim() == contentText.trim()) {
+//        return
+//    }
+//    inputView.contentText = contentText
+//}
+//
+@InverseBindingAdapter(attribute = "contentText", event = "textAttrChanged")
+fun getInputViewContent(inputView: InputView): String {
     return inputView.contentText
 }
 
-@BindingAdapter("textAttrChanged",requireAll = false)
-fun inputViewAttrChange(inputView: InputView,listener: InverseBindingListener){
-    listener?.let {
-        inputView.textChangeListener = object :InputView.ITextChangeListener{
-           override fun onChange() {
-               it.onChange()
-           }
-       }
+@BindingAdapter("textAttrChanged", requireAll = false)
+fun inputViewAttrChange(inputView: InputView, listener: InverseBindingListener) {
+    inputView.textChangeListener = object : InputView.ITextChangeListener {
+        override fun onChange() {
+            listener.onChange()
+        }
     }
 }
