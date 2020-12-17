@@ -41,6 +41,15 @@ interface ApiService {
 
     /**
      *
+     * @description 退出登录
+     * @return
+     *
+     */
+    @GET("/user/logout/json")
+    suspend fun logout():ApiResponse<Any>
+
+    /**
+     *
      * @description 获取首页 banner
      * @return
      *
@@ -99,4 +108,14 @@ interface ApiService {
      */
     @GET("/wxarticle/chapters/json ")
     suspend fun getWXArticleChapters():ApiResponse<List<ArticleChapter>>
+
+    /**
+     *
+     * @description 获取收藏文章列表
+     * @param pageIndex 页码
+     * @return
+     *
+     */
+    @GET("/lg/collect/list/{pageIndex}/json")
+    suspend fun getCollectList(@Path("pageIndex") pageIndex: Int):ApiResponse<PageData<List<Article>>>
 }

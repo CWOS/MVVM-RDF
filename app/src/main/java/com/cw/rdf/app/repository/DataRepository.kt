@@ -1,6 +1,5 @@
 package com.cw.rdf.app.repository
 
-import android.graphics.pdf.PdfDocument
 import com.cw.rdf.app.http.ApiService
 import com.cw.rdf.app.model.*
 
@@ -13,9 +12,39 @@ import com.cw.rdf.app.model.*
 class DataRepository(private val apiService: ApiService) {
 
 
+    /**
+     *
+     * @description 登录
+     * @param userName 用户名
+     * @param passwd 密码
+     * @return
+     *
+     */
     suspend fun login(userName: String, passwd: String): UserInfo? {
         return apiService.login(userName, passwd).data
     }
+
+    /**
+     *
+     * @description 注册账号
+     * @param userName 用户名
+     * @param passwd 密码
+     * @param repasswd 确认密码
+     * @return
+     *
+     */
+    suspend fun register(userName: String,passwd: String,repasswd:String):UserInfo?{
+        return apiService.register(userName,passwd,repasswd).data
+    }
+
+    /**
+     *
+     * @description 退出登录
+     * @return
+     *
+     */
+    suspend fun logout():Boolean = apiService.logout().errorCode == 0
+
 
     /**
      *
@@ -78,5 +107,16 @@ class DataRepository(private val apiService: ApiService) {
      */
     suspend fun getProjects(pageIndex: Int, cid: Int): PageData<List<Project>>? {
         return apiService.getProjects(pageIndex, cid).data
+    }
+
+    /**
+     *
+     * @description 获取收藏文章列表
+     * @param pageIndex 页码
+     * @return 已收藏文章列表
+     *
+     */
+    suspend fun getCollectList(pageIndex: Int):PageData<List<Article>>?{
+        return apiService.getCollectList(pageIndex).data
     }
 }

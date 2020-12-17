@@ -10,4 +10,15 @@ import com.cw.rdf.core.base.BaseViewModel
  *
  */
 class MineVm(private val dataRepository: DataRepository):BaseViewModel() {
+    /**
+     *
+     * @description 获取收藏列表
+     * @param pageIndex 页码
+     * @return
+     *
+     */
+    fun getCollectList(pageIndex:Int) = launch {
+        dataRepository.getCollectList(0)
+    }
+
 }

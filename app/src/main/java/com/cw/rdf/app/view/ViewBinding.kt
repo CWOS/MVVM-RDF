@@ -13,13 +13,13 @@ import androidx.databinding.InverseBindingListener
 
 /***********InputView 双向数据绑定**************/
 @BindingAdapter("contentText")
-//fun setInputViewContent(inputView: InputView, contentText: String) {
-//    if (inputView.contentText.trim() == contentText.trim()) {
-//        return
-//    }
-//    inputView.contentText = contentText
-//}
-//
+fun setInputViewContent(inputView: InputView, contentText: String) {
+    if (inputView.contentText.trim() == contentText.trim()) {
+        return
+    }
+    inputView.contentText = contentText
+}
+
 @InverseBindingAdapter(attribute = "contentText", event = "textAttrChanged")
 fun getInputViewContent(inputView: InputView): String {
     return inputView.contentText

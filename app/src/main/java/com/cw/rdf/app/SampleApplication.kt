@@ -1,7 +1,7 @@
 package com.cw.rdf.app
 
 import android.app.Application
-import com.cqrd.mrt.mcf.di.retrofitModule
+import com.cw.rdf.core.di.retrofitModule
 import com.cw.rdf.app.di.appModule
 import com.cw.rdf.app.di.vmModule
 import org.koin.android.ext.koin.androidContext

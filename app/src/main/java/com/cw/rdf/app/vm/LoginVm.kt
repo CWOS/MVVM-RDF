@@ -14,7 +14,18 @@ class LoginVm(private val dataRepository: DataRepository) : BaseViewModel() {
 
     var userName = MutableLiveData<String>("")
     var passwd = MutableLiveData<String>("")
+
+    /**
+     * @description 登录
+     */
     fun login() = launch {
         dataRepository.login(userName.value?:"",passwd.value?:"")
+    }
+
+    /**
+     * @description 退出登录
+     */
+    fun logout() = launch {
+        dataRepository.logout()
     }
 }

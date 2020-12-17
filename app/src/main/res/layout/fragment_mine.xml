@@ -90,7 +90,8 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="50dp">
+                android:layout_height="50dp"
+                android:onClick="@{()->fragment.navToMyCollect()}">
 
                 <ImageView
                     android:id="@+id/icon"
@@ -166,7 +167,8 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:layout_marginTop="30dp">
+                android:layout_marginTop="30dp"
+                android:onClick="@{()->fragment.logout()}">
 
                 <View
                     android:layout_width="match_parent"

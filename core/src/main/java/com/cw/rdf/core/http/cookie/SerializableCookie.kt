@@ -1,10 +1,10 @@
 package com.cw.rdf.core.http.cookie
 
+import android.util.Log
+import com.cw.rdf.core.utils.byteArrayToHexString
+import com.cw.rdf.core.utils.hexStringToByteArray
 import okhttp3.Cookie
-import java.io.IOException
-import java.io.ObjectInputStream
-import java.io.ObjectOutputStream
-import java.io.Serializable
+import java.io.*
 
 
 /**
@@ -13,32 +13,32 @@ import java.io.Serializable
  * @CreateDate： 2020/10/28 7:10 PM
  *
  */
-class SerializableCookie(cookie: Cookie) : Serializable {
-    @Transient
-    private val cookie = cookie
+class SerializableCookie : Serializable {
+
+    companion object {
+        private const val serialVersionUID = 6374381828722046732L
+        private const val TAG = "SerializableCookie"
+        private const val NON_VALID_EXPIRES_AT= -1L
+    }
 
     @Transient
-    private var clientCookie: Cookie? = null
-    fun getCookie(): Cookie? {
-        var bestCookie: Cookie? = cookie
-        if (clientCookie != null) {
-            bestCookie = clientCookie
-        }
-        return bestCookie
-    }
+    private var cookie:Cookie?=null
 
     /** 将cookie写到对象流中  */
     @Throws(IOException::class)
     private fun writeObject(out: ObjectOutputStream) {
-        out.writeObject(cookie.name())
-        out.writeObject(cookie.value())
-        out.writeLong(cookie.expiresAt())
-        out.writeObject(cookie.domain())
-        out.writeObject(cookie.path())
-        out.writeBoolean(cookie.secure())
-        out.writeBoolean(cookie.httpOnly())
-        out.writeBoolean(cookie.hostOnly())
-        out.writeBoolean(cookie.persistent())
+        out.writeObject(cookie?.name())
+        out.writeObject(cookie?.value())
+        if(cookie?.persistent()!!){
+            out.writeLong(cookie?.expiresAt()!!)
+        }else{
+            out.writeLong(NON_VALID_EXPIRES_AT)
+        }
+        out.writeObject(cookie?.domain())
+        out.writeObject(cookie?.path())
+        cookie?.secure()?.let { out.writeBoolean(it) }
+        cookie?.httpOnly()?.let { out.writeBoolean(it) }
+        cookie?.hostOnly()?.let { out.writeBoolean(it) }
     }
 
     /** 从对象流中构建cookie对象  */
@@ -52,20 +52,84 @@ class SerializableCookie(cookie: Cookie) : Serializable {
         val secure = `in`.readBoolean()
         val httpOnly = `in`.readBoolean()
         val hostOnly = `in`.readBoolean()
-        val persistent = `in`.readBoolean()
         var builder = Cookie.Builder()
             .name(name)
             .value(value)
-            .expiresAt(expiresAt)
+            .domain(domain)
             .path(path)
-        builder = if (hostOnly) builder.hostOnlyDomain(domain) else builder.domain(domain)
+
+        if(expiresAt != NON_VALID_EXPIRES_AT){
+            builder.expiresAt(expiresAt)
+        }
+        builder = if (hostOnly) builder.hostOnlyDomain(domain) else builder
         builder = if (secure) builder.secure() else builder
         builder = if (httpOnly) builder.httpOnly() else builder
-        clientCookie = builder.build()
+        cookie = builder.build()
     }
 
-    companion object {
-        private const val serialVersionUID = 6374381828722046732L
+
+    /**
+     *
+     * @description 序列化 Cookie 对象到 String
+     * @param cookie 需要序列化的 Cookie
+     * @return 序列化 cookie 得到的 String
+     *
+     */
+    fun encode(cookie: Cookie?): String? {
+        this.cookie = cookie!!
+        val byteArrayOutputStream = ByteArrayOutputStream()
+        var objectOutputStream: ObjectOutputStream? = null
+        try {
+            objectOutputStream = ObjectOutputStream(byteArrayOutputStream)
+            objectOutputStream.writeObject(this)
+        } catch (e: IOException) {
+            Log.d(Companion.TAG, "IOException in encodeCookie", e)
+            return null
+        } finally {
+            if (objectOutputStream != null) {
+                try {
+                    // Closing a ByteArrayOutputStream has no effect, it can be used later (and is used in the return statement)
+                    objectOutputStream.close()
+                } catch (e: IOException) {
+                    Log.d(Companion.TAG, "Stream not closed in encodeCookie", e)
+                }
+            }
+        }
+        return byteArrayToHexString(byteArrayOutputStream.toByteArray())
     }
 
+
+    /**
+     *
+     * @description 将 cookie 字符串反序列化成 Cookie 对象
+     * @param encodedCookie 需要反序列化的 cookie 字符串
+     * @return 序列化后得到的 Cookie 对象
+     *
+     */
+    fun decode(encodedCookie: String): Cookie? {
+        val bytes =
+            hexStringToByteArray(encodedCookie)
+        val byteArrayInputStream = ByteArrayInputStream(
+            bytes
+        )
+        var cookie: Cookie? = null
+        var objectInputStream: ObjectInputStream? = null
+        try {
+            objectInputStream = ObjectInputStream(byteArrayInputStream)
+            cookie = (objectInputStream.readObject() as SerializableCookie).cookie
+        } catch (e: IOException) {
+            Log.d(TAG, "IOException in decodeCookie", e)
+        } catch (e: ClassNotFoundException) {
+            Log.d(TAG, "ClassNotFoundException in decodeCookie", e)
+        } finally {
+            if (objectInputStream != null) {
+                try {
+                    objectInputStream.close()
+                } catch (e: IOException) {
+                    Log.d(TAG, "Stream not closed in decodeCookie", e)
+                }
+            }
+        }
+        return cookie
+    }
 }

@@ -1,4 +1,4 @@
-package com.cqrd.mrt.mcf.di
+package com.cw.rdf.core.di
 
 
 import android.content.Context
@@ -9,6 +9,8 @@ import com.cw.rdf.core.ext.interceptor
 import com.cw.rdf.core.http.DefaultHttpExceptionHandler
 import com.cw.rdf.core.http.cookie.HttpCookieJar
 import com.cw.rdf.core.http.RetrofitConfig
+import com.cw.rdf.core.http.cookie.CookieStore
+import com.cw.rdf.core.http.cookie.DefaultCookieStoreImpl
 import com.google.gson.Gson
 import okhttp3.CookieJar
 import okhttp3.Interceptor
@@ -31,7 +33,8 @@ import javax.inject.Named
  */
 val retrofitModule = module {
     single { provideGson() }
-    single { provideCookieJar() }
+    single { provideCookieStore(get()) }
+    single { provideCookieJar(get()) }
 //    single(named(NAME_BASE_URL)) {
 //        "baseUrl"
 //    }
@@ -44,18 +47,18 @@ val retrofitModule = module {
     single { provideRetrofitBuilder(get(named(NAME_BASE_URL)), get(), getConverterFactory()) }
     single { provideRetrofit(get()) }
 
-    single { provideRetrofitConfig(get(),get(),get()) }
+    single { provideRetrofitConfig(get(), get(), get()) }
     single { provideOkhttpClientBuild(get(), get(), getInterceptor()) }
     single { provideOkhttpClient(get()) }
 
 
     //inject okHttp interceptor
-    interceptor(1){
+    interceptor(1) {
         Interceptor { chain -> chain.proceed(chain.request()) }
     }
 
     //inject retrofit Converter.Factory
-    converterFactory(1){
+    converterFactory(1) {
         GsonConverterFactory.create(get())
     }
 
@@ -125,18 +128,23 @@ fun provideRetrofit(builder: Retrofit.Builder): Retrofit {
     return builder.build()
 }
 
-
-fun provideCookieJar(): CookieJar {
-    return HttpCookieJar()
-}
-
 fun provideGson(): Gson {
     return Gson()
 }
 
-fun provideRetrofitConfig(context: Context,cookieJar: CookieJar,gson: Gson):RetrofitConfig{
+
+fun provideCookieJar(cookieStore: CookieStore): CookieJar {
+    return HttpCookieJar(cookieStore)
+}
+
+fun provideCookieStore(context: Context): CookieStore {
+    return DefaultCookieStoreImpl(context)
+}
+
+fun provideRetrofitConfig(context: Context, cookieJar: CookieJar, gson: Gson): RetrofitConfig {
     RetrofitConfig.cookieJar = RetrofitConfig.cookieJar ?: cookieJar
     RetrofitConfig.gson = RetrofitConfig.gson ?: gson
-    RetrofitConfig.httpExceptionHandler = RetrofitConfig.httpExceptionHandler ?: DefaultHttpExceptionHandler(context)
+    RetrofitConfig.httpExceptionHandler =
+        RetrofitConfig.httpExceptionHandler ?: DefaultHttpExceptionHandler(context)
     return RetrofitConfig
 }

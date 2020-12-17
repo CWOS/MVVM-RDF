@@ -4,13 +4,17 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.text.TextUtils
 import android.util.Log
-import com.cw.rdf.core.ext.*
+import com.cw.rdf.core.ext.clear
+import com.cw.rdf.core.ext.getSharedPreference
+import com.cw.rdf.core.ext.put
+import com.cw.rdf.core.ext.remove
 import okhttp3.Cookie
 import okhttp3.HttpUrl
 import java.io.*
 import java.util.*
 import java.util.concurrent.ConcurrentHashMap
 import kotlin.collections.HashMap
+import kotlin.collections.set
 import kotlin.experimental.and
 
 /**
@@ -25,7 +29,6 @@ class DefaultCookieStoreImpl(val context: Context) : CookieStore {
     private val PREFIX_HOST_NAME = "host_"
     private val PREFIX_COOKIE_NAME = "cookie_"
     private var cookies: HashMap<String, ConcurrentHashMap<String, Cookie>> = HashMap()
-    private val omitNonPersistentCookies = false
     private var cookiePrefs: SharedPreferences
 
     init {
@@ -37,9 +40,6 @@ class DefaultCookieStoreImpl(val context: Context) : CookieStore {
     }
 
     override fun addCookie(httpUrl: HttpUrl, cookie: Cookie) {
-        if (omitNonPersistentCookies && !cookie.persistent()) {
-            return
-        }
         val name = this.cookieName(cookie)
         val hostKey = this.hostName(httpUrl)
 
@@ -53,7 +53,7 @@ class DefaultCookieStoreImpl(val context: Context) : CookieStore {
         hostKey?.let { updateKeysOfHostkey(it) }
         //保存 cookie
         name?.let {
-            cookiePrefs.put(PREFIX_COOKIE_NAME + it, encodeCookie(SerializableCookie(cookie)))
+            cookiePrefs.put(PREFIX_COOKIE_NAME + it, SerializableCookie().encode(cookie))
         }
 
     }
@@ -61,6 +61,7 @@ class DefaultCookieStoreImpl(val context: Context) : CookieStore {
     override fun addCookie(httpUrl: HttpUrl, cookies: List<Cookie>) {
         for (cookie in cookies) {
             if (isCookieExpired(cookie)) {
+                removeCookieForPrefs(hostName(httpUrl), cookie)
                 continue
             }
             this.addCookie(httpUrl, cookie)
@@ -96,12 +97,11 @@ class DefaultCookieStoreImpl(val context: Context) : CookieStore {
      * @return 符合条件的 cookie 集合
      *
      */
-    private fun getCookiesForMemory(hostKey: String): List<Cookie> {
+    private fun  getCookiesForMemory(hostKey: String): List<Cookie> {
         if (!cookies.containsKey(hostKey)) {
             return emptyList()
         }
         val cookieList = arrayListOf<Cookie>()
-
         for (cookie in cookies[hostKey]?.values!!) {
             if (isCookieExpired(cookie)) {
                 removeCookieForPrefs(hostKey, cookie)
@@ -159,7 +159,7 @@ class DefaultCookieStoreImpl(val context: Context) : CookieStore {
             for (name in cookieNames) {
                 val encodeCookie =
                     cookiePrefs.getString(PREFIX_COOKIE_NAME + name, null) ?: continue
-                val decodeCookie = decodeCookie(encodeCookie)
+                val decodeCookie = SerializableCookie().decode(encodeCookie)
                 decodeCookie?.let {
                     cookies[key]?.put(name, it)
                 }
@@ -222,87 +222,5 @@ class DefaultCookieStoreImpl(val context: Context) : CookieStore {
 
     private fun cookieName(cookie: Cookie?): String? {
         return if (cookie == null) null else cookie.name() + cookie.domain()
-    }
-
-    /**
-     *
-     * @description 序列化 Cookie 对象到 String
-     * @param cookie 需要序列化的 Cookie
-     * @return 序列化 cookie 得到的 String
-     *
-     */
-    private fun encodeCookie(cookie: SerializableCookie?): String? {
-        if (cookie == null) return null
-        val os = ByteArrayOutputStream()
-        try {
-            val outputStream = ObjectOutputStream(os)
-            outputStream.writeObject(cookie)
-        } catch (e: IOException) {
-            Log.d(TAG, "IOException in encodeCookie", e)
-            return null
-        }
-        return byteArrayToHexString(os.toByteArray())
-    }
-
-    /**
-     *
-     * @description 将 cookie 字符串反序列化成 Cookie 对象
-     * @param cookieString 需要反序列化的 cookie 字符串
-     * @return 序列化后得到的 Cookie 对象
-     *
-     */
-    private fun decodeCookie(cookieString: String?): Cookie? {
-        val bytes = hexStringToByteArray(cookieString!!)
-        val byteArrayInputStream = ByteArrayInputStream(bytes)
-        var cookie: Cookie? = null
-        try {
-            val objectInputStream = ObjectInputStream(byteArrayInputStream)
-            cookie = (objectInputStream.readObject() as SerializableCookie).getCookie()
-        } catch (e: IOException) {
-            Log.d(TAG, "IOException in decodeCookie", e)
-        } catch (e: ClassNotFoundException) {
-            Log.d(TAG, "ClassNotFoundException in decodeCookie", e)
-        }
-        return cookie
-    }
-
-    /**
-     *
-     * @description 二进制数组转十六进制字符串
-     * @param
-     * @return
-     *
-     */
-    private fun byteArrayToHexString(bytes: ByteArray): String? {
-        val sb = StringBuilder(bytes.size * 2)
-        for (element in bytes) {
-            val v: Int = (element and 0xff.toByte()).toInt()
-            if (v < 16) {
-                sb.append('0')
-            }
-            sb.append(Integer.toHexString(v))
-        }
-        return sb.toString().toUpperCase(Locale.US)
-    }
-
-    /**
-     *
-     * @description 十六进制字符串转二进制数组
-     * @param hexString
-     * @return
-     *
-     */
-    private fun hexStringToByteArray(hexString: String): ByteArray? {
-        val len = hexString.length
-        val data = ByteArray(len / 2)
-        var i = 0
-        while (i < len) {
-            data[i / 2] = ((Character.digit(
-                hexString[i],
-                16
-            ) shl 4) + Character.digit(hexString[i + 1], 16)).toByte()
-            i += 2
-        }
-        return data
     }
 }
