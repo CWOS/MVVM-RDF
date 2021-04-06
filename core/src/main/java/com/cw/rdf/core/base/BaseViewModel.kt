@@ -7,6 +7,7 @@ import com.cw.rdf.core.http.ErrorHandle
 import com.cw.rdf.core.http.request
 import com.cw.rdf.core.model.EVENT_BACK
 import com.cw.rdf.core.model.ViewModelEvent
+import org.koin.androidx.viewmodel.compat.SharedViewModelCompat
 
 /**
  * @Description: ViewModel 基类，定义数据加载状态（isLoading）、提示信息（hintText/hintTextRes）、
@@ -28,7 +29,7 @@ open class BaseViewModel: ViewModel() {
     }
 
     fun getEventId(): Int {
-        return event.value?.getValueIfNotHandled() ?: -1
+        return event.value?.get()?:-1
     }
 
     fun getHintText(): String? {

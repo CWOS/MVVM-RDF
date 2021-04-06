@@ -17,7 +17,7 @@
 
 
         <androidx.viewpager2.widget.ViewPager2
-            android:id="@+id/main_viewpager2"
+            android:id="@+id/header_viewpager2"
             android:layout_width="match_parent"
             android:layout_height="150dp"
             android:orientation="horizontal"

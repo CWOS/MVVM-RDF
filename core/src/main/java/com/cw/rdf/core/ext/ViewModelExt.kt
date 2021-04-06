@@ -39,9 +39,8 @@ fun BaseViewModel.bind(context: Context) {
             })
 
         event.observe(context, Observer {
-            val eventId = getEventId()
-            if (eventId >= 0) {
-                context.onViewModelEvent(eventId)
+            event.value?.let {
+                context.onViewModelEvent(it)
             }
         })
     }
@@ -72,9 +71,8 @@ fun BaseViewModel.bind(fragment: BaseBindingViewModelFragment<*, *>) {
         })
 
     event.observe(fragment, Observer {
-        val eventId = getEventId()
-        if (eventId >= 0) {
-            fragment.onViewModelEvent(eventId)
+        event.value?.let {
+            fragment.onViewModelEvent(it)
         }
     })
 

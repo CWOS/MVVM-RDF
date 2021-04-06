@@ -1,5 +1,6 @@
 package com.cw.rdf.recycle.base
 
+import android.util.Log
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
@@ -34,10 +35,12 @@ class BindingViewHolder<T,BINDING : ViewDataBinding>(val binding: BINDING):Recyc
 
 
     fun onAttach(){
-        lifecycleRegistry.currentState = Lifecycle.State.STARTED
+        Log.d("wang","onAttach......${binding}")
+//        lifecycleRegistry.currentState = Lifecycle.State.STARTED
     }
 
     fun onDetah(){
-        lifecycleRegistry.currentState = Lifecycle.State.DESTROYED
+        Log.d("wang","onDetah......${binding}.")
+//        lifecycleRegistry.currentState = Lifecycle.State.DESTROYED
     }
 }

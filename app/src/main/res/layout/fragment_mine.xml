@@ -4,13 +4,17 @@
     <data>
 
         <variable
+            name="vm"
+            type="com.cw.rdf.app.vm.MineVm" />
+
+        <variable
             name="fragment"
             type="com.cw.rdf.app.fragment.MineFragment" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -27,7 +31,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="@string/project"
+                android:text="@string/mine"
                 android:textColor="@color/white"
                 android:textSize="16dp" />
         </LinearLayout>
@@ -43,9 +47,11 @@
         <LinearLayout
             android:id="@+id/user_info_layout"
             android:layout_width="match_parent"
-            android:layout_height="80dp"
+            android:layout_height="100dp"
             android:orientation="horizontal"
+            android:background="@color/white"
             app:layout_constraintTop_toBottomOf="@id/top_line"
+            android:clickable="@{vm.userName.empty?true:false}"
             android:onClick="@{()->fragment.navToLogin()}">
 
             <ImageView
@@ -60,7 +66,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="20dp"
-                android:text="@string/unlogin"
+                android:text="@{vm.userName.empty?@string/unlogin:vm.userName}"
                 android:textColor="@color/black"
                 android:textSize="20dp" />
         </LinearLayout>
@@ -69,7 +75,6 @@
             android:id="@+id/top_line1"
             android:layout_width="match_parent"
             android:layout_height="1px"
-            android:layout_marginTop="15dp"
             android:background="@color/gray"
             app:layout_constraintTop_toBottomOf="@id/user_info_layout" />
 
@@ -90,7 +95,8 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="60dp"
+                android:background="@color/white"
                 android:onClick="@{()->fragment.navToMyCollect()}">
 
                 <ImageView
@@ -128,8 +134,9 @@
 
 
             <RelativeLayout
+                android:background="@color/white"
                 android:layout_width="match_parent"
-                android:layout_height="50dp">
+                android:layout_height="60dp">
 
                 <ImageView
                     android:id="@+id/icon1"
@@ -166,8 +173,9 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="60dp"
                 android:layout_marginTop="30dp"
+                android:background="@color/white"
                 android:onClick="@{()->fragment.logout()}">
 
                 <View

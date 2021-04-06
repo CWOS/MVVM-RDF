@@ -52,8 +52,18 @@ dependencies {
     api "pub.devrel:easypermissions:$versions.easypermissions"
     api "org.jetbrains.anko:anko-commons:$versions.anko"
 
+    // Koin AndroidX Scope features
+//    api "org.koin:koin-androidx-scope:$versions.koin_version"
     // Koin AndroidX ViewModel features
     api "org.koin:koin-androidx-viewmodel:$versions.koin_version"
+//    // Koin AndroidX Fragment features
+//    api "org.koin:koin-androidx-fragment:$versions.koin_version"
+//    // Koin AndroidX WorkManager
+//    api "org.koin:koin-androidx-workmanager:$versions.koin_version"
+//    // Koin AndroidX Jetpack Compose
+//    api "org.koin:koin-androidx-compose:$versions.koin_version"
+//    // Koin AndroidX Experimental features
+//    api "org.koin:koin-androidx-ext:$versions.koin_version"
 
     //网络请求
     api "com.squareup.okhttp3:okhttp:$versions.okhttp"

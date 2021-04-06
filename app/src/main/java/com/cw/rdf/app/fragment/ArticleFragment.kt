@@ -13,6 +13,7 @@ import com.cw.rdf.core.base.BaseBindingViewModelFragment
 class ArticleFragment:BaseBindingViewModelFragment<FragmentArticleBinding,ArticleVm>() {
     override fun initDataBinding(binding: FragmentArticleBinding) {
         super.initDataBinding(binding)
+//        binding.lifecycleOwner = this
 
     }
 }

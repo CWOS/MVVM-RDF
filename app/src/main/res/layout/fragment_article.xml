@@ -34,16 +34,25 @@
                 android:textSize="16dp" />
         </LinearLayout>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/article_recycler"
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/swipe_refresh_layout"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/title_layout"
-            app:verticalSpace="@{@dimen/dp1}"
-            app:data="@{vm.articleList}"
-            app:itemLayout="@{@layout/item_recycler_article}"
-            app:itemEventHandler="@{vm}"/>
+            app:layout_constraintTop_toBottomOf="@id/title_layout">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/article_recycler"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:data="@{vm.articleList}"
+                app:itemEventHandler="@{vm}"
+                app:itemLayout="@{@layout/item_recycler_article}"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/title_layout"
+                app:verticalSpace="@{@dimen/dp1}" />
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

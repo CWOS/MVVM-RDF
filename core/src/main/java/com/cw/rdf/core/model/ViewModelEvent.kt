@@ -10,6 +10,13 @@ class ViewModelEvent<T>(private val value: T) {
 
     private var hasBeanHandled = false
 
+    /**
+     *
+     * @description 防止粘性事件被多次消费，多个观察者场景下，只会被一个观察者消费
+     * @param
+     * @return
+     *
+     */
     fun getValueIfNotHandled(): T? {
         return if (hasBeanHandled) {
             null

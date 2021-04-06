@@ -27,9 +27,7 @@ val vmModule = module {
         ToDoVm(get())
     }
     viewModel {
-        MineVm(get())
+        MineVm(get(),get())
     }
-    viewModel {
-        LoginVm(get())
-    }
+
 }

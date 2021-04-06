@@ -20,8 +20,8 @@ class DataRepository(private val apiService: ApiService) {
      * @return
      *
      */
-    suspend fun login(userName: String, passwd: String): UserInfo? {
-        return apiService.login(userName, passwd).data
+    suspend fun login(userName: String, passwd: String): ApiResponse<UserInfo>? {
+        return apiService.login(userName, passwd)
     }
 
     /**

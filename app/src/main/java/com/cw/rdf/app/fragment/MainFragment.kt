@@ -38,7 +38,6 @@ class MainFragment:BaseBindingViewModelFragment<FragmentMainBinding,MainVm>() {
         super.initDataBinding(binding)
         this.binding = binding
         binding.fragment = this
-        viewModel.getWXArticleChapters()
 
         activity?.let {
             binding.mainViewpager2.adapter = MainViewPager2Adapter(it, fragments)

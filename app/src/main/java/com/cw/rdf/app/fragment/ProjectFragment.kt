@@ -1,6 +1,5 @@
 package com.cw.rdf.app.fragment
 
-import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.Observer
 import com.cw.rdf.app.R
 import com.cw.rdf.app.databinding.FragmentProjectBinding

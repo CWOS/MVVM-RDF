@@ -1,13 +1,12 @@
 package com.cw.rdf.app
 
-import androidx.fragment.app.Fragment
+import android.util.Log
 import com.cw.rdf.app.databinding.ActivityMainBinding
-import com.cw.rdf.app.fragment.*
 import com.cw.rdf.app.vm.MainVm
 import com.cw.rdf.core.base.BaseBindingViewModelActivity
-import com.ecarx.ae.adapter.MainViewPager2Adapter
-import com.google.android.material.tabs.TabLayout
-import com.google.android.material.tabs.TabLayoutMediator
+import com.cw.rdf.core.http.cookie.CookieStore
+import okhttp3.HttpUrl
+import org.koin.android.ext.android.inject
 
 /**
  *
@@ -17,7 +16,5 @@ import com.google.android.material.tabs.TabLayoutMediator
  *
  */
 class MainActivity : BaseBindingViewModelActivity<ActivityMainBinding, MainVm>() {
-
     override fun isLightStatusBar() = true
-
 }

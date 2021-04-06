@@ -53,16 +53,10 @@ abstract class BaseBindingAdapter<T : Any, BINDING : ViewDataBinding>() :
         return data?.getOrNull(position)
     }
 
-    override fun onCreateViewHolder(
-        parent: ViewGroup,
-        viewType: Int
-    ): BindingViewHolder<T, BINDING> {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BindingViewHolder<T, BINDING> {
         val layout = itemViewTypeCreator?.getItemLayout(viewType) ?: layoutRes
-        val binding = DataBindingUtil.inflate<BINDING>(
-            LayoutInflater.from(parent.context),
-            layout,
-            parent,
-            false
+        val binding = DataBindingUtil.inflate<BINDING>(LayoutInflater.from(parent.context),
+            layout, parent, false
         )
         val holder = BindingViewHolder<T, BINDING>(binding)
         binding.lifecycleOwner = holder
@@ -81,7 +75,7 @@ abstract class BaseBindingAdapter<T : Any, BINDING : ViewDataBinding>() :
 
     override fun getItemViewType(position: Int): Int {
         return itemViewTypeCreator?.getItemViewType(position, getItem(position))
-            ?: super.getItemViewType(position)
+            ?: position
     }
 
 

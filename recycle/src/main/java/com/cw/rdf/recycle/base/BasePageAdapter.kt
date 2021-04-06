@@ -1,6 +1,7 @@
 package com.cw.rdf.recycle.base
 
 import android.annotation.SuppressLint
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.annotation.LayoutRes
@@ -37,7 +38,7 @@ abstract class BasePageAdapter<T,BINDING : ViewDataBinding> : PagedListAdapter<T
     ): BindingViewHolder<T, BINDING> {
         val binding = DataBindingUtil.inflate<BINDING>(LayoutInflater.from(parent.context),getLayoutRes(),parent,false)
         val holder = BindingViewHolder<T,BINDING>(binding)
-        binding.lifecycleOwner = holder
+//        binding.lifecycleOwner = holder
         bindClick(holder,binding)
         return holder
     }

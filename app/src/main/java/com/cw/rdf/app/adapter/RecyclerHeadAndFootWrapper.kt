@@ -24,17 +24,19 @@ class RecyclerHeadAndFootWrapper<T : Any, BINDING : ViewDataBinding>(val innerAd
         parent: ViewGroup,
         viewType: Int
     ): BindingViewHolder<T, BINDING> {
+
         if (headerViews.get(viewType) != null) {
             return BindingViewHolder(headerViews.get(viewType)!!)
         }
 
         if (footViews.get(viewType) != null) {
-            return BindingViewHolder(headerViews.get(viewType)!!)
+            return BindingViewHolder(footViews.get(viewType)!!)
         }
         return innerAdapter.onCreateViewHolder(parent, viewType)
     }
 
     override fun onBindViewHolder(holder: BindingViewHolder<T, BINDING>, position: Int) {
+
         if (isHeaderViewPos(position)) {
             return
         }
@@ -79,7 +81,7 @@ class RecyclerHeadAndFootWrapper<T : Any, BINDING : ViewDataBinding>(val innerAd
 
     fun addHeaderView(headerViewBinding: BINDING) {
         headerViews.put(BASE_ITEM_TYPE_HEADER + headerViews.size(), headerViewBinding)
-        notifyDataSetChanged()
+        notifyItemChanged(0)
     }
 
     fun addFooterView(footViewBinding: BINDING) {

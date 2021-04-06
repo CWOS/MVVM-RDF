@@ -5,8 +5,12 @@ import com.cw.rdf.core.BR
 import com.cw.rdf.core.contract.OnVMEventListener
 import com.cw.rdf.core.ext.bind
 import com.cw.rdf.core.model.EVENT_BACK
+import com.cw.rdf.core.model.ViewModelEvent
 import com.cw.rdf.core.utils.getViewModelType
 import org.koin.android.ext.android.getKoin
+import org.koin.androidx.viewmodel.ViewModelOwner
+import org.koin.androidx.viewmodel.ViewModelOwnerDefinition
+import org.koin.androidx.viewmodel.ext.android.getViewModel
 import org.koin.androidx.viewmodel.koin.getViewModel
 import org.koin.core.qualifier.named
 
@@ -17,7 +21,7 @@ import org.koin.core.qualifier.named
  *
  */
 open class BaseBindingViewModelActivity<BINDING : ViewDataBinding, VM : BaseViewModel>:
-    BaseBindingActivity<BINDING>(),OnVMEventListener{
+    BaseBindingActivity<BINDING>(),OnVMEventListener {
 
 
 
@@ -32,10 +36,13 @@ open class BaseBindingViewModelActivity<BINDING : ViewDataBinding, VM : BaseView
 
     }
 
-    override fun onViewModelEvent(eventId: Int) {
-        if(eventId == EVENT_BACK){
-            onBackPressed()
+    override fun <T> onViewModelEvent(event: ViewModelEvent<T>) {
+        event.getValueIfNotHandled()?.let {
+            if(it == EVENT_BACK){
+                onBackPressed()
+            }
         }
+
     }
 
     /**
@@ -48,7 +55,11 @@ open class BaseBindingViewModelActivity<BINDING : ViewDataBinding, VM : BaseView
     private fun createViewModel():VM{
         val viewModel = getViewModelType(javaClass)?.let {
             //通过反射获取具体的 ViewModel 类实例，使用 koin 动态注入
-            getKoin().getViewModel(this,it.kotlin,null,null) as VM
+//            getKoin().getViewModel(this,it.kotlin,null,null) as VM
+            val owner:ViewModelOwnerDefinition={
+                ViewModelOwner.Companion.from(this,this)
+            }
+            this.getViewModel(null,null,owner,it.kotlin,null) as VM
         }
         viewModel?.bind(this)
         return viewModel!!

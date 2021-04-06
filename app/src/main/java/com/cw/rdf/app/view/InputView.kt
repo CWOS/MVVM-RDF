@@ -5,6 +5,7 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.util.AttributeSet
 import android.view.LayoutInflater
+import android.view.inputmethod.InputMethodManager
 import android.widget.RelativeLayout
 import androidx.databinding.DataBindingUtil
 import com.cw.rdf.app.R
@@ -97,6 +98,11 @@ class InputView : RelativeLayout {
                 binding.bottomLine.setBackgroundColor(resources.getColor(R.color.blue))
             } else {
                 binding.bottomLine.setBackgroundColor(resources.getColor(R.color.gray1))
+                val inputMethodManager =
+                    context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                if (inputMethodManager.isActive()) {
+                    inputMethodManager.hideSoftInputFromWindow(v.getApplicationWindowToken(), 0)
+                }
             }
         }
 

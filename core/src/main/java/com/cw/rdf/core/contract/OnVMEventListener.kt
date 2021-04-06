@@ -1,5 +1,7 @@
 package com.cw.rdf.core.contract
 
+import com.cw.rdf.core.model.ViewModelEvent
+
 /**
  * @Description: 用于 ViewModel 和 Activity/Fragment 之间事件传递回调
  * @Author: wanglejun
@@ -14,5 +16,5 @@ interface OnVMEventListener {
      * @return
      *
      */
-    fun onViewModelEvent(eventId:Int)
+    fun <T> onViewModelEvent(event:ViewModelEvent<T>)
 }

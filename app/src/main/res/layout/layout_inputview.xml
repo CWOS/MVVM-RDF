@@ -38,7 +38,9 @@
             android:hint="请输入账号"
             android:singleLine="true"
             android:textColor="@color/black"
-            android:textSize="16dp" />
+            android:textSize="16dp"
+            android:focusable="true"
+            android:focusableInTouchMode="true"/>
 
         <View
             android:id="@+id/bottom_line"

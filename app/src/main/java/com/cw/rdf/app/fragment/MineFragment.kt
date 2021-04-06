@@ -2,14 +2,11 @@ package com.cw.rdf.app.fragment
 
 import androidx.navigation.Navigation
 import com.cw.rdf.app.R
-import com.cw.rdf.app.databinding.FragmentIndexBinding
 import com.cw.rdf.app.databinding.FragmentMineBinding
-import com.cw.rdf.app.di.vmModule
-import com.cw.rdf.app.vm.IndexVm
-import com.cw.rdf.app.vm.LoginVm
 import com.cw.rdf.app.vm.MineVm
 import com.cw.rdf.core.base.BaseBindingViewModelFragment
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import com.cw.rdf.core.http.cookie.CookieStore
+import org.koin.android.ext.android.inject
 
 /**
  * @Description:我的
@@ -18,8 +15,8 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
  *
  */
 class MineFragment:BaseBindingViewModelFragment<FragmentMineBinding,MineVm>() {
+    private val TAG = "MineFragment"
     private lateinit var binding: FragmentMineBinding
-    private val loginViewModel:LoginVm by viewModel()
     override fun initDataBinding(binding: FragmentMineBinding) {
         super.initDataBinding(binding)
         this.binding = binding
@@ -35,6 +32,10 @@ class MineFragment:BaseBindingViewModelFragment<FragmentMineBinding,MineVm>() {
     }
 
     fun logout(){
-        loginViewModel.logout()
+        viewModel.logout()
+    }
+
+    override fun isKeepViewModel(): Boolean {
+        return true
     }
 }

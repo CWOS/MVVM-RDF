@@ -3,19 +3,14 @@ package com.cw.rdf.core.http.cookie
 import android.content.Context
 import android.content.SharedPreferences
 import android.text.TextUtils
-import android.util.Log
 import com.cw.rdf.core.ext.clear
 import com.cw.rdf.core.ext.getSharedPreference
 import com.cw.rdf.core.ext.put
 import com.cw.rdf.core.ext.remove
 import okhttp3.Cookie
 import okhttp3.HttpUrl
-import java.io.*
-import java.util.*
 import java.util.concurrent.ConcurrentHashMap
-import kotlin.collections.HashMap
 import kotlin.collections.set
-import kotlin.experimental.and
 
 /**
  * @Description:默认 CookieStore 实现
