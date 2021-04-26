@@ -16,7 +16,7 @@ import com.cw.rdf.recycle.listener.ObserverListChangeListener
  *
  */
 abstract class BaseBindingAdapter<T : Any, BINDING : ViewDataBinding>() :
-    RecyclerView.Adapter<BindingViewHolder<T, BINDING>>() {
+    RecyclerView.Adapter<BindingLifecycleViewHolder<T, BINDING>>() {
 
     //item 按下监听
     var itemClickListener: OnItemClickListener<T>? = null
@@ -53,12 +53,12 @@ abstract class BaseBindingAdapter<T : Any, BINDING : ViewDataBinding>() :
         return data?.getOrNull(position)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BindingViewHolder<T, BINDING> {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BindingLifecycleViewHolder<T, BINDING> {
         val layout = itemViewTypeCreator?.getItemLayout(viewType) ?: layoutRes
         val binding = DataBindingUtil.inflate<BINDING>(LayoutInflater.from(parent.context),
             layout, parent, false
         )
-        val holder = BindingViewHolder<T, BINDING>(binding)
+        val holder = BindingLifecycleViewHolder<T, BINDING>(binding)
         binding.lifecycleOwner = holder
         bindClick(holder, binding)
         return holder
@@ -68,7 +68,7 @@ abstract class BaseBindingAdapter<T : Any, BINDING : ViewDataBinding>() :
         return data?.size ?: 0
     }
 
-    override fun onBindViewHolder(holder: BindingViewHolder<T, BINDING>, position: Int) {
+    override fun onBindViewHolder(holder: BindingLifecycleViewHolder<T, BINDING>, position: Int) {
         holder.bind(getItem(position))
         holder.setItemEventHandler(itemEventHandler)
     }
@@ -87,7 +87,7 @@ abstract class BaseBindingAdapter<T : Any, BINDING : ViewDataBinding>() :
      * @return
      *
      */
-     open fun bindClick(holder: BindingViewHolder<*, *>, binding: BINDING) {
+     open fun bindClick(holder: BindingLifecycleViewHolder<*, *>, binding: BINDING) {
         binding.root.setOnClickListener {
             val position = holder.layoutPosition
             itemClickListener?.onItemClick(getItem(position), position)
@@ -100,14 +100,14 @@ abstract class BaseBindingAdapter<T : Any, BINDING : ViewDataBinding>() :
         }
     }
 
-    override fun onViewAttachedToWindow(holder: BindingViewHolder<T, BINDING>) {
+    override fun onViewAttachedToWindow(holder: BindingLifecycleViewHolder<T, BINDING>) {
         super.onViewAttachedToWindow(holder)
-        holder.onAttach()
+        holder.onAppear()
     }
 
-    override fun onViewDetachedFromWindow(holder: BindingViewHolder<T, BINDING>) {
+    override fun onViewDetachedFromWindow(holder: BindingLifecycleViewHolder<T, BINDING>) {
         super.onViewDetachedFromWindow(holder)
-        holder.onDetah()
+        holder.onDisappear()
     }
 
     /**

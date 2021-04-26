@@ -27,7 +27,8 @@ private fun request(block: CoroutineLambda) {
 
 fun request(exceptionHandler: HttpExceptionHandler? = RetrofitConfig.httpExceptionHandler,
             error: ErrorHandle? = null,
-            block: CoroutineLambda) {
+            block: CoroutineLambda
+) {
     request {
         try {
             block()

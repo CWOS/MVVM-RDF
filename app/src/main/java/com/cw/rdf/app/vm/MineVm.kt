@@ -1,6 +1,5 @@
 package com.cw.rdf.app.vm
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.cw.rdf.app.EVENT_LOGIN_SUCCESS
 import com.cw.rdf.app.repository.DataRepository

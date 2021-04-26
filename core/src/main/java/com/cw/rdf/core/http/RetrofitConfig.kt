@@ -12,7 +12,7 @@ import okhttp3.CookieJar
 object RetrofitConfig {
     var cookieJar: CookieJar? = null
     var gson: Gson? = null
-    var httpExceptionHandler: HttpExceptionHandler? = null
+    var httpExceptionHandler: com.cw.rdf.core.http.HttpExceptionHandler? = null
     var connectTimeout: Long? = null
     var callTimeout: Long? = null
     var readTimeout: Long? = null

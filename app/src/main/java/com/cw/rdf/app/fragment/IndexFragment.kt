@@ -1,17 +1,12 @@
 package com.cw.rdf.app.fragment
 
 import android.annotation.SuppressLint
-import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.Observer
-import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.SimpleItemAnimator
 import com.cw.rdf.app.R
 import com.cw.rdf.app.adapter.RecyclerHeadAndFootWrapper
-import com.cw.rdf.app.adapter.RecyclerViewAdapter
 import com.cw.rdf.app.databinding.FragmentIndexBinding
 import com.cw.rdf.app.databinding.LayoutIndexRecyclerHeaderBinding
 import com.cw.rdf.app.vm.IndexVm

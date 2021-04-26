@@ -1,11 +1,12 @@
 package com.cw.rdf.app.adapter
 
+import android.util.Log
 import android.view.ViewGroup
 import androidx.collection.SparseArrayCompat
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
 import com.cw.rdf.recycle.base.BaseBindingAdapter
-import com.cw.rdf.recycle.base.BindingViewHolder
+import com.cw.rdf.recycle.base.BindingLifecycleViewHolder
 
 
 /**
@@ -15,7 +16,8 @@ import com.cw.rdf.recycle.base.BindingViewHolder
  *
  */
 class RecyclerHeadAndFootWrapper<T : Any, BINDING : ViewDataBinding>(val innerAdapter: BaseBindingAdapter<T, BINDING>) :
-    RecyclerView.Adapter<BindingViewHolder<T, BINDING>>() {
+    RecyclerView.Adapter<BindingLifecycleViewHolder<T, BINDING>>() {
+    private val TAG = "RecyclerHeadAndFootWrap"
     private val BASE_ITEM_TYPE_HEADER = 100000
     private val BASE_ITEM_TYPE_FOOTER = 200000
     private val headerViews: SparseArrayCompat<BINDING> = SparseArrayCompat()
@@ -23,19 +25,19 @@ class RecyclerHeadAndFootWrapper<T : Any, BINDING : ViewDataBinding>(val innerAd
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): BindingViewHolder<T, BINDING> {
+    ): BindingLifecycleViewHolder<T, BINDING> {
 
         if (headerViews.get(viewType) != null) {
-            return BindingViewHolder(headerViews.get(viewType)!!)
+            return BindingLifecycleViewHolder(headerViews.get(viewType)!!)
         }
 
         if (footViews.get(viewType) != null) {
-            return BindingViewHolder(footViews.get(viewType)!!)
+            return BindingLifecycleViewHolder(footViews.get(viewType)!!)
         }
         return innerAdapter.onCreateViewHolder(parent, viewType)
     }
 
-    override fun onBindViewHolder(holder: BindingViewHolder<T, BINDING>, position: Int) {
+    override fun onBindViewHolder(holder: BindingLifecycleViewHolder<T, BINDING>, position: Int) {
 
         if (isHeaderViewPos(position)) {
             return
@@ -88,11 +90,15 @@ class RecyclerHeadAndFootWrapper<T : Any, BINDING : ViewDataBinding>(val innerAd
         footViews.put(BASE_ITEM_TYPE_FOOTER + footViews.size(), footViewBinding)
     }
 
-    override fun onAttachedToRecyclerView(recyclerView: RecyclerView) {
-        innerAdapter.onAttachedToRecyclerView(recyclerView)
+    override fun onViewAttachedToWindow(holder: BindingLifecycleViewHolder<T, BINDING>) {
+        super.onViewAttachedToWindow(holder)
+        Log.d(TAG,"onViewAttachedToWindow......${holder}")
+        innerAdapter.onViewAttachedToWindow(holder)
     }
 
-    override fun onDetachedFromRecyclerView(recyclerView: RecyclerView) {
-        innerAdapter.onDetachedFromRecyclerView(recyclerView)
+    override fun onViewDetachedFromWindow(holder: BindingLifecycleViewHolder<T, BINDING>) {
+        super.onViewDetachedFromWindow(holder)
+        Log.d(TAG,"onViewDetachedFromWindow......${holder}")
+        innerAdapter.onViewDetachedFromWindow(holder)
     }
 }

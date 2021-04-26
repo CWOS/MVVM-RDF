@@ -1,7 +1,6 @@
 package com.cw.rdf.recycle.base
 
 import android.annotation.SuppressLint
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.annotation.LayoutRes
@@ -9,7 +8,6 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
-import androidx.viewpager.widget.PagerAdapter
 
 /**
  * @Description:支持 Pagging 的通用 Binding Adapter
@@ -17,7 +15,7 @@ import androidx.viewpager.widget.PagerAdapter
  * @CreateDate： 2020/9/14 11:39 PM
  *
  */
-abstract class BasePageAdapter<T,BINDING : ViewDataBinding> : PagedListAdapter<T,BindingViewHolder<T,BINDING>>(CustomDiffItemCallback<T>()) {
+abstract class BasePageAdapter<T,BINDING : ViewDataBinding> : PagedListAdapter<T, BindingLifecycleViewHolder<T, BINDING>>(CustomDiffItemCallback<T>()) {
 
 
     //列表按下监听
@@ -35,15 +33,15 @@ abstract class BasePageAdapter<T,BINDING : ViewDataBinding> : PagedListAdapter<T
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): BindingViewHolder<T, BINDING> {
+    ): BindingLifecycleViewHolder<T, BINDING> {
         val binding = DataBindingUtil.inflate<BINDING>(LayoutInflater.from(parent.context),getLayoutRes(),parent,false)
-        val holder = BindingViewHolder<T,BINDING>(binding)
-//        binding.lifecycleOwner = holder
+        val holder = BindingLifecycleViewHolder<T,BINDING>(binding)
+        binding.lifecycleOwner = holder
         bindClick(holder,binding)
         return holder
     }
 
-    override fun onBindViewHolder(holder: BindingViewHolder<T, BINDING>, position: Int) {
+    override fun onBindViewHolder(holder: BindingLifecycleViewHolder<T, BINDING>, position: Int) {
         holder.bind(getItem(position))
         holder.setItemEventHandler(itemEventHandler)
     }
@@ -56,21 +54,21 @@ abstract class BasePageAdapter<T,BINDING : ViewDataBinding> : PagedListAdapter<T
      * @return
      *
      */
-    protected fun bindClick(holder: BindingViewHolder<*, *>,binding: BINDING){
+    protected fun bindClick(holder: BindingLifecycleViewHolder<*, *>, binding: BINDING){
         binding.root.setOnClickListener {
             val position = holder.layoutPosition
             itemOnClickListener?.onItemClick(getItem(position),position)
         }
     }
 
-    override fun onViewAttachedToWindow(holder: BindingViewHolder<T, BINDING>) {
+    override fun onViewAttachedToWindow(holder: BindingLifecycleViewHolder<T, BINDING>) {
         super.onViewAttachedToWindow(holder)
-        holder.onAttach()
+        holder.onAppear()
     }
 
-    override fun onViewDetachedFromWindow(holder: BindingViewHolder<T, BINDING>) {
+    override fun onViewDetachedFromWindow(holder: BindingLifecycleViewHolder<T, BINDING>) {
         super.onViewDetachedFromWindow(holder)
-        holder.onDetah()
+        holder.onDisappear()
     }
 
     /**

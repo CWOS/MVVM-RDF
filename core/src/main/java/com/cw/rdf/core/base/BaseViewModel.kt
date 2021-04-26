@@ -7,7 +7,6 @@ import com.cw.rdf.core.http.ErrorHandle
 import com.cw.rdf.core.http.request
 import com.cw.rdf.core.model.EVENT_BACK
 import com.cw.rdf.core.model.ViewModelEvent
-import org.koin.androidx.viewmodel.compat.SharedViewModelCompat
 
 /**
  * @Description: ViewModel 基类，定义数据加载状态（isLoading）、提示信息（hintText/hintTextRes）、
@@ -48,7 +47,7 @@ open class BaseViewModel: ViewModel() {
         event.value = ViewModelEvent(eventId)
     }
 
-    fun launch(isShowLoading: Boolean = true, onError: ErrorHandle ? = null, block: CoroutineLambda) {
+    fun launch(isShowLoading: Boolean = true, onError: ErrorHandle? = null, block: CoroutineLambda) {
         request(error = { t ->
             isLoading.value = false
             onError?.invoke(t) == true

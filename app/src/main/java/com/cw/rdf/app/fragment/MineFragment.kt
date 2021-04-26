@@ -5,8 +5,6 @@ import com.cw.rdf.app.R
 import com.cw.rdf.app.databinding.FragmentMineBinding
 import com.cw.rdf.app.vm.MineVm
 import com.cw.rdf.core.base.BaseBindingViewModelFragment
-import com.cw.rdf.core.http.cookie.CookieStore
-import org.koin.android.ext.android.inject
 
 /**
  * @Description:我的

@@ -1,9 +1,17 @@
 package com.cw.rdf.app.vm
 
+import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
+import androidx.paging.LivePagedListBuilder
+import androidx.paging.PagedList
 import com.cw.rdf.app.model.Article
 import com.cw.rdf.app.repository.DataRepository
 import com.cw.rdf.core.base.BaseViewModel
+import com.cw.rdf.recycle.paging.PageKeyedDataSourceFactory
+import kotlinx.coroutines.CoroutineScope
+
 
 /**
  * @Description:文章 ViewModel
@@ -12,12 +20,36 @@ import com.cw.rdf.core.base.BaseViewModel
  *
  */
 class ArticleVm(private val dataRepository: DataRepository):BaseViewModel() {
-    val articleList = MutableLiveData<List<Article>>()
+    private val TAG = "ArticleVm"
+    private lateinit var articlePageData:LiveData<PagedList<Article>>
+    var articleList = MutableLiveData<PagedList<Article>>()
 
-    init {
-        getMaidanArticleList(0)
+
+
+    private val block :suspend CoroutineScope.(Int,Int)->List<Article> = {
+            pageNum, pageSize ->
+        Log.d(TAG,"loadAfter==params.key==${pageNum}===pageSize$pageSize")
+        dataRepository.getMaidanArticleList(pageNum).datas!!
     }
-    fun getMaidanArticleList(pageIndex:Int) = launch {
-        articleList.value = dataRepository.getMaidanArticleList(pageIndex)?.datas
+
+    private val pageKeyedDataSource = PageKeyedDataSourceFactory(block)
+    fun getMaidanArticleList():LiveData<PagedList<Article>>{
+
+         val config = PagedList.Config.Builder()
+            .setPageSize(20)
+            .setInitialLoadSizeHint(15)
+            .setPrefetchDistance(5)
+            .setEnablePlaceholders(false)
+            .build()
+        articlePageData = LivePagedListBuilder<Int,Article>(pageKeyedDataSource,config).build()
+        articlePageData.observeForever(Observer {
+            Log.d(TAG,"articlePageData====$it")
+            articleList.value = it
+        })
+        return articlePageData;
+    }
+
+    fun onRefresh(){
+        pageKeyedDataSource.invalidate()
     }
 }

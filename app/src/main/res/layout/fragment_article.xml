@@ -46,12 +46,10 @@
                 android:id="@+id/article_recycler"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                app:data="@{vm.articleList}"
+                app:pageData="@{vm.articleList}"
+                app:pageItemLayout="@{@layout/item_recycler_article}"
                 app:itemEventHandler="@{vm}"
-                app:itemLayout="@{@layout/item_recycler_article}"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/title_layout"
                 app:verticalSpace="@{@dimen/dp1}" />
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>

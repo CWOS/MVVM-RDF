@@ -46,8 +46,8 @@ dependencies {
     implementation "androidx.core:core-ktx:$versions.androidx_core_ktx"
     implementation "androidx.appcompat:appcompat:$versions.androidx_appcompat"
     implementation "androidx.constraintlayout:constraintlayout:$versions.androidx_constraintlayout"
-    implementation 'androidx.navigation:navigation-fragment-ktx:2.2.2'
-    implementation 'androidx.navigation:navigation-ui-ktx:2.2.2'
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.3.1'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.3.1'
     testImplementation "junit:junit:$versions.test_junit"
     androidTestImplementation "androidx.test.ext:junit:$versions.androidx_test_ext_junit"
     androidTestImplementation "androidx.test.espresso:espresso-core:$versions.androidx_test_espresso_core"

@@ -12,7 +12,6 @@ import org.koin.core.logger.Level
 
 /**
  * @Description:自动完成初始化，初始化时机比 Application#onCreate 还早，
- * 思路来自 AndroidAutoSize 框架
  * @Author: wanglejun
  * @CreateDate： 2020/8/17 6:07 AM
  *

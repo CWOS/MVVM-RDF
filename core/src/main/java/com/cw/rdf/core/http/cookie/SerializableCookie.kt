@@ -1,8 +1,6 @@
 package com.cw.rdf.core.http.cookie
 
 import android.util.Log
-import com.cw.rdf.core.utils.byteArrayToHexString
-import com.cw.rdf.core.utils.hexStringToByteArray
 import okhttp3.Cookie
 import java.io.*
 
@@ -95,7 +93,7 @@ class SerializableCookie : Serializable {
                 }
             }
         }
-        return byteArrayToHexString(byteArrayOutputStream.toByteArray())
+        return com.cw.rdf.core.utils.byteArrayToHexString(byteArrayOutputStream.toByteArray())
     }
 
 
@@ -108,7 +106,7 @@ class SerializableCookie : Serializable {
      */
     fun decode(encodedCookie: String): Cookie? {
         val bytes =
-            hexStringToByteArray(encodedCookie)
+            com.cw.rdf.core.utils.hexStringToByteArray(encodedCookie)
         val byteArrayInputStream = ByteArrayInputStream(
             bytes
         )

@@ -1,5 +1,6 @@
 package com.cw.rdf.app.repository
 
+import androidx.paging.PagedList
 import com.cw.rdf.app.http.ApiService
 import com.cw.rdf.app.model.*
 
@@ -84,8 +85,8 @@ class DataRepository(private val apiService: ApiService) {
      * @return
      *
      */
-    suspend fun getMaidanArticleList(pageIndex: Int): PageData<List<Article>>? {
-        return apiService.getMaidanArticleList(pageIndex).data
+    suspend fun getMaidanArticleList(pageIndex: Int): PageData<List<Article>> {
+        return apiService.getMaidanArticleList(pageIndex).data!!
     }
 
     /**

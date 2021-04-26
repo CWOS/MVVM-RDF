@@ -9,7 +9,7 @@ import androidx.databinding.ViewDataBinding
  * @CreateDate： 2020/9/18 12:04 AM
  *
  */
-class SimplePageAdapter(@param:LayoutRes @field:LayoutRes private val layoutRes: Int):BasePageAdapter<Any,ViewDataBinding>() {
+class SimplePageAdapter<T>(@param:LayoutRes @field:LayoutRes private val layoutRes: Int):BasePageAdapter<T,ViewDataBinding>() {
     override fun getLayoutRes(): Int {
         return layoutRes
     }

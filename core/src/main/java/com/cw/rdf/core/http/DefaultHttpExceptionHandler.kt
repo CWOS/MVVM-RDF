@@ -18,7 +18,8 @@ import javax.net.ssl.SSLHandshakeException
  *Time: 2020-02-21
  *Description: xxx
  */
-class DefaultHttpExceptionHandler(private val context: Context) : HttpExceptionHandler {
+class DefaultHttpExceptionHandler(private val context: Context) :
+    HttpExceptionHandler {
 
     override fun handleException(throwable: Throwable) {
         when (throwable) {

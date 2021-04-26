@@ -145,6 +145,8 @@ fun provideRetrofitConfig(context: Context, cookieJar: CookieJar, gson: Gson): R
     RetrofitConfig.cookieJar = RetrofitConfig.cookieJar ?: cookieJar
     RetrofitConfig.gson = RetrofitConfig.gson ?: gson
     RetrofitConfig.httpExceptionHandler =
-        RetrofitConfig.httpExceptionHandler ?: DefaultHttpExceptionHandler(context)
+        RetrofitConfig.httpExceptionHandler ?: DefaultHttpExceptionHandler(
+            context
+        )
     return RetrofitConfig
 }
