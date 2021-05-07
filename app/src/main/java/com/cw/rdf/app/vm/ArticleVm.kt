@@ -32,21 +32,22 @@ class ArticleVm(private val dataRepository: DataRepository):BaseViewModel() {
         dataRepository.getMaidanArticleList(pageNum).datas!!
     }
 
-    private val pageKeyedDataSource = PageKeyedDataSourceFactory(block)
-    fun getMaidanArticleList():LiveData<PagedList<Article>>{
 
-         val config = PagedList.Config.Builder()
-            .setPageSize(20)
-            .setInitialLoadSizeHint(15)
-            .setPrefetchDistance(5)
-            .setEnablePlaceholders(false)
-            .build()
+    private val pageKeyedDataSource = PageKeyedDataSourceFactory(block)
+    private val config = PagedList.Config.Builder()
+        .setPageSize(20)
+        .setInitialLoadSizeHint(15)
+        .setPrefetchDistance(5)
+        .setEnablePlaceholders(false)
+        .build()
+
+    fun getMaidanArticleList(){
         articlePageData = LivePagedListBuilder<Int,Article>(pageKeyedDataSource,config).build()
         articlePageData.observeForever(Observer {
-            Log.d(TAG,"articlePageData====$it")
+            Log.d(TAG,"getMaidanArticleList===articlePageData====${it.size}")
             articleList.value = it
+            Log.d(TAG,"getMaidanArticleList====articleList===${articleList.value?.size}")
         })
-        return articlePageData;
     }
 
     fun onRefresh(){

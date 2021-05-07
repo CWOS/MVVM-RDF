@@ -1,32 +1,34 @@
-package com.cw.rdf.app.adapter
+package com.cw.rdf.recycle.paging.adapter
 
-import android.util.Log
 import android.view.ViewGroup
+import androidx.annotation.LayoutRes
 import androidx.collection.SparseArrayCompat
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
-import com.cw.rdf.recycle.base.BaseBindingAdapter
 import com.cw.rdf.recycle.base.BindingLifecycleViewHolder
 
-
 /**
- * @Description: RecyclerView 添加 Header Foot View Adapter装饰器，参考鸿神baseAdapter
+ * @Description:支持添加 Header 和 Footer 的 PagedListAdapter，
+ * 参考 https://juejin.cn/post/6844903814189826062
  * @Author: wanglejun
- * @CreateDate： 2020/10/7 11:29 PM
+ * @CreateDate： 5/7/21 11:12 PM
  *
  */
-class RecyclerHeadAndFootWrapper<T : Any, BINDING : ViewDataBinding>(val innerAdapter: BaseBindingAdapter<T, BINDING>) :
-    RecyclerView.Adapter<BindingLifecycleViewHolder<T, BINDING>>() {
-    private val TAG = "RecyclerHeadAndFootWrap"
+class PagingHeadAndFootProxyAdapter<T : Any>(@param:LayoutRes @field:LayoutRes private val layoutRes: Int):BasePageAdapter<T,ViewDataBinding>() {
+
     private val BASE_ITEM_TYPE_HEADER = 100000
     private val BASE_ITEM_TYPE_FOOTER = 200000
-    private val headerViews: SparseArrayCompat<BINDING> = SparseArrayCompat()
-    private val footViews: SparseArrayCompat<BINDING> = SparseArrayCompat()
+    private val headerViews: SparseArrayCompat<ViewDataBinding> = SparseArrayCompat()
+    private val footViews: SparseArrayCompat<ViewDataBinding> = SparseArrayCompat()
+
+    override fun getLayoutRes(): Int {
+        return layoutRes
+    }
+
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): BindingLifecycleViewHolder<T, BINDING> {
-
+    ): BindingLifecycleViewHolder<T, ViewDataBinding> {
         if (headerViews.get(viewType) != null) {
             return BindingLifecycleViewHolder(headerViews.get(viewType)!!)
         }
@@ -34,22 +36,21 @@ class RecyclerHeadAndFootWrapper<T : Any, BINDING : ViewDataBinding>(val innerAd
         if (footViews.get(viewType) != null) {
             return BindingLifecycleViewHolder(footViews.get(viewType)!!)
         }
-        return innerAdapter.onCreateViewHolder(parent, viewType)
+        return super.onCreateViewHolder(parent, viewType)
     }
 
-    override fun onBindViewHolder(holder: BindingLifecycleViewHolder<T, BINDING>, position: Int) {
-
+    override fun onBindViewHolder(holder: BindingLifecycleViewHolder<T, ViewDataBinding>, position: Int) {
         if (isHeaderViewPos(position)) {
             return
         }
         if (isFooterViewPos(position)) {
             return
         }
-        innerAdapter.onBindViewHolder(holder, position - getHeadersCount())
+        super.onBindViewHolder(holder, position - getHeadersCount())
     }
 
-    override fun getItemCount(): Int {
-        return getHeadersCount() + getFootersCount() + getRealItemCount()
+    override fun registerAdapterDataObserver(observer: RecyclerView.AdapterDataObserver) {
+        super.registerAdapterDataObserver(AdapterDataObserverProxy(observer,getHeadersCount()))
     }
 
     override fun getItemViewType(position: Int): Int {
@@ -58,11 +59,11 @@ class RecyclerHeadAndFootWrapper<T : Any, BINDING : ViewDataBinding>(val innerAd
         } else if (isFooterViewPos(position)) {
             return footViews.keyAt(position - getHeadersCount() - getRealItemCount())
         }
-        return innerAdapter.getItemViewType(position)
+        return super.getItemViewType(position)
     }
 
     private fun getRealItemCount(): Int {
-        return innerAdapter.itemCount
+        return super.getItemCount()
     }
 
     private fun getHeadersCount(): Int {
@@ -81,24 +82,14 @@ class RecyclerHeadAndFootWrapper<T : Any, BINDING : ViewDataBinding>(val innerAd
         return position > getFootersCount() + getRealItemCount()
     }
 
-    fun addHeaderView(headerViewBinding: BINDING) {
+    fun addHeaderView(headerViewBinding: ViewDataBinding) {
         headerViews.put(BASE_ITEM_TYPE_HEADER + headerViews.size(), headerViewBinding)
         notifyItemChanged(0)
     }
 
-    fun addFooterView(footViewBinding: BINDING) {
+    fun addFooterView(footViewBinding: ViewDataBinding) {
         footViews.put(BASE_ITEM_TYPE_FOOTER + footViews.size(), footViewBinding)
     }
 
-    override fun onViewAttachedToWindow(holder: BindingLifecycleViewHolder<T, BINDING>) {
-        super.onViewAttachedToWindow(holder)
-        Log.d(TAG,"onViewAttachedToWindow......${holder}")
-        innerAdapter.onViewAttachedToWindow(holder)
-    }
 
-    override fun onViewDetachedFromWindow(holder: BindingLifecycleViewHolder<T, BINDING>) {
-        super.onViewDetachedFromWindow(holder)
-        Log.d(TAG,"onViewDetachedFromWindow......${holder}")
-        innerAdapter.onViewDetachedFromWindow(holder)
-    }
 }

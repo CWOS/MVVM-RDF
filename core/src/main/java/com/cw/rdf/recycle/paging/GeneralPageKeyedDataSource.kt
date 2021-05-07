@@ -1,5 +1,6 @@
 package com.cw.rdf.recycle.paging
 
+import android.util.Log
 import androidx.paging.PageKeyedDataSource
 import com.cw.rdf.core.http.ErrorHandle
 import com.cw.rdf.core.http.request
@@ -13,6 +14,8 @@ import retrofit2.HttpException
  *
  */
 class GeneralPageKeyedDataSource<T>(private val block: suspend CoroutineScope.(pageNum:Int, pageSize:Int) -> List<T>):PageKeyedDataSource<Int,T>() {
+
+    private val TAG = "GeneralPageKeyedDataSou"
     private val onError: ErrorHandle = {
         it is HttpException && it.code() == 404
     }
@@ -21,6 +24,7 @@ class GeneralPageKeyedDataSource<T>(private val block: suspend CoroutineScope.(p
         params: LoadInitialParams<Int>,
         callback: LoadInitialCallback<Int, T>) {
         request(error = onError) {
+            Log.d(TAG,"loadInitial====params.requestedLoadSize:${params.requestedLoadSize}")
             val bean = block(0,params.requestedLoadSize)
             callback.onResult(bean,null,1)
         }
@@ -29,6 +33,7 @@ class GeneralPageKeyedDataSource<T>(private val block: suspend CoroutineScope.(p
     //加载下一页
     override fun loadAfter(params: LoadParams<Int>, callback: LoadCallback<Int, T>) {
         request(error = onError) {
+            Log.d(TAG,"loadInitial==params.key:${params.key}==params.requestedLoadSize:${params.requestedLoadSize}")
             val bean = block(params.key,params.requestedLoadSize)
             callback.onResult(bean,params.key+1)
         }

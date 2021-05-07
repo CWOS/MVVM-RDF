@@ -1,4 +1,4 @@
-package com.cw.rdf.recycle.base
+package com.cw.rdf.recycle.paging.adapter
 
 import androidx.annotation.LayoutRes
 import androidx.databinding.ViewDataBinding
@@ -9,7 +9,8 @@ import androidx.databinding.ViewDataBinding
  * @CreateDate： 2020/9/18 12:04 AM
  *
  */
-class SimplePageAdapter<T>(@param:LayoutRes @field:LayoutRes private val layoutRes: Int):BasePageAdapter<T,ViewDataBinding>() {
+class SimplePageAdapter<T>(@param:LayoutRes @field:LayoutRes private val layoutRes: Int):
+    BasePageAdapter<T, ViewDataBinding>() {
     override fun getLayoutRes(): Int {
         return layoutRes
     }

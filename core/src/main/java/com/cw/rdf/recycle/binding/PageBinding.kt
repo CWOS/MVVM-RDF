@@ -5,8 +5,8 @@ import androidx.databinding.BindingAdapter
 import androidx.paging.PagedList
 import androidx.recyclerview.widget.RecyclerView
 import com.cw.rdf.recycle.base.BaseBindingAdapter
-import com.cw.rdf.recycle.base.BasePageAdapter
-import com.cw.rdf.recycle.base.SimplePageAdapter
+import com.cw.rdf.recycle.paging.adapter.BasePageAdapter
+import com.cw.rdf.recycle.paging.adapter.SimplePageAdapter
 
 /**
  * @Description:
@@ -31,7 +31,8 @@ import com.cw.rdf.recycle.base.SimplePageAdapter
 fun <T> setPageData(recyclerView: RecyclerView, pageData: PagedList<T>?, @LayoutRes pageItemLayout:Int, itemClick: BaseBindingAdapter.OnItemClickListener<T>?, itemEventHandler: Any?){
     val adapter = recyclerView.adapter
     if(adapter == null){
-        val simplePageAdapter = SimplePageAdapter<T>(pageItemLayout)
+        val simplePageAdapter =
+            SimplePageAdapter<T>(pageItemLayout)
         simplePageAdapter.submitList(pageData)
         simplePageAdapter.itemOnClickListener = itemClick
         simplePageAdapter.itemEventHandler = itemEventHandler

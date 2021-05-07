@@ -1,13 +1,13 @@
-package com.cw.rdf.recycle.base
+package com.cw.rdf.recycle.paging.adapter
 
-import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.paging.PagedListAdapter
-import androidx.recyclerview.widget.DiffUtil
+import com.cw.rdf.recycle.base.BaseBindingAdapter
+import com.cw.rdf.recycle.base.BindingLifecycleViewHolder
 
 /**
  * @Description:支持 Pagging 的通用 Binding Adapter
@@ -15,7 +15,10 @@ import androidx.recyclerview.widget.DiffUtil
  * @CreateDate： 2020/9/14 11:39 PM
  *
  */
-abstract class BasePageAdapter<T,BINDING : ViewDataBinding> : PagedListAdapter<T, BindingLifecycleViewHolder<T, BINDING>>(CustomDiffItemCallback<T>()) {
+abstract class BasePageAdapter<T,BINDING : ViewDataBinding> :
+    PagedListAdapter<T, BindingLifecycleViewHolder<T, BINDING>>(
+        CustomDiffItemCallback<T>()
+    ) {
 
 
     //列表按下监听
@@ -35,7 +38,10 @@ abstract class BasePageAdapter<T,BINDING : ViewDataBinding> : PagedListAdapter<T
         viewType: Int
     ): BindingLifecycleViewHolder<T, BINDING> {
         val binding = DataBindingUtil.inflate<BINDING>(LayoutInflater.from(parent.context),getLayoutRes(),parent,false)
-        val holder = BindingLifecycleViewHolder<T,BINDING>(binding)
+        val holder =
+            BindingLifecycleViewHolder<T, BINDING>(
+                binding
+            )
         binding.lifecycleOwner = holder
         bindClick(holder,binding)
         return holder
@@ -69,17 +75,5 @@ abstract class BasePageAdapter<T,BINDING : ViewDataBinding> : PagedListAdapter<T
     override fun onViewDetachedFromWindow(holder: BindingLifecycleViewHolder<T, BINDING>) {
         super.onViewDetachedFromWindow(holder)
         holder.onDisappear()
-    }
-
-    /**
-     * 比较器
-     * @param T
-     */
-    class CustomDiffItemCallback<T> : DiffUtil.ItemCallback<T>() {
-        override fun areItemsTheSame(oldItem: T, newItem: T): Boolean = oldItem === newItem
-
-        @SuppressLint("DiffUtilEquals")
-        override fun areContentsTheSame(oldItem: T, newItem: T): Boolean = oldItem == newItem
-
     }
 }

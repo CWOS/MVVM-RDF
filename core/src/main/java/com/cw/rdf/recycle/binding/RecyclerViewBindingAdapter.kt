@@ -6,13 +6,10 @@ import android.widget.LinearLayout
 import androidx.annotation.LayoutRes
 import androidx.databinding.BindingAdapter
 import androidx.databinding.ViewDataBinding
-import androidx.paging.PagedList
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
 import com.cw.rdf.recycle.base.BaseBindingAdapter
-import com.cw.rdf.recycle.base.BasePageAdapter
 import com.cw.rdf.recycle.base.SimpleBindingAdapter
-import com.cw.rdf.recycle.base.SimplePageAdapter
 
 /**
  * @Description: ReccyclerView BindingAdapter

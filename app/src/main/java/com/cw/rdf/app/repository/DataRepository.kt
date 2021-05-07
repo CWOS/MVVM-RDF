@@ -74,8 +74,8 @@ class DataRepository(private val apiService: ApiService) {
      * @return
      *
      */
-    suspend fun getIndexArticleList(pageIndex: Int): PageData<List<Article>>? {
-        return apiService.getIndexArticleList(pageIndex).data
+    suspend fun getIndexArticleList(pageIndex: Int): PageData<List<Article>> {
+        return apiService.getIndexArticleList(pageIndex).data!!
     }
 
     /**
