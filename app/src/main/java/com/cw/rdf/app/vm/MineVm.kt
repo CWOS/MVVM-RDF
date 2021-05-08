@@ -62,12 +62,12 @@ class MineVm(private val dataRepository: DataRepository,private val cookieStore:
      * @return
      *
      */
-    private fun getUserNameForCookie():String?{
+    private fun getUserNameForCookie():String{
         val httpUrl = HttpUrl.Builder().scheme("https").host("www.wanandroid.com").encodedPath("/user/login").build()
         val cookies = cookieStore.getCookies(httpUrl)
         for (cookie in cookies){
             if(cookie.name().equals("loginUserName")) return cookie.value()
         }
-        return null
+        return ""
     }
 }

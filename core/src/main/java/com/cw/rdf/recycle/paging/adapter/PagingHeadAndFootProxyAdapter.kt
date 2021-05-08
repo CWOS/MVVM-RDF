@@ -1,5 +1,6 @@
 package com.cw.rdf.recycle.paging.adapter
 
+import android.util.Log
 import android.view.ViewGroup
 import androidx.annotation.LayoutRes
 import androidx.collection.SparseArrayCompat
@@ -53,6 +54,10 @@ class PagingHeadAndFootProxyAdapter<T : Any>(@param:LayoutRes @field:LayoutRes p
         super.registerAdapterDataObserver(AdapterDataObserverProxy(observer,getHeadersCount()))
     }
 
+    override fun getItemCount(): Int {
+        return getHeadersCount() + getFootersCount() + getRealItemCount()
+    }
+
     override fun getItemViewType(position: Int): Int {
         if (isHeaderViewPos(position)) {
             return headerViews.keyAt(position)
@@ -79,7 +84,7 @@ class PagingHeadAndFootProxyAdapter<T : Any>(@param:LayoutRes @field:LayoutRes p
     }
 
     private fun isFooterViewPos(position: Int): Boolean {
-        return position > getFootersCount() + getRealItemCount()
+        return position > getFootersCount() + getRealItemCount() - 1
     }
 
     fun addHeaderView(headerViewBinding: ViewDataBinding) {
@@ -89,6 +94,8 @@ class PagingHeadAndFootProxyAdapter<T : Any>(@param:LayoutRes @field:LayoutRes p
 
     fun addFooterView(footViewBinding: ViewDataBinding) {
         footViews.put(BASE_ITEM_TYPE_FOOTER + footViews.size(), footViewBinding)
+        notifyItemChanged(0)
+
     }
 
 
