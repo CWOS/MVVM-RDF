@@ -24,7 +24,7 @@ val vmModule = module {
         ProjectVm(get())
     }
     viewModel {
-        ToDoVm(get())
+        MyCollectVm(get())
     }
     viewModel {
         MineVm(get(),get())

@@ -65,6 +65,7 @@ class IndexFragment : BaseBindingViewModelFragment<FragmentIndexBinding, IndexVm
 
         viewModel.articleList.observe(this, Observer {
             indexAdapter.submitList(it)
+
             binding.swipeRefreshLayout.isRefreshing = false
         })
 

@@ -94,6 +94,7 @@
             app:layout_constraintTop_toBottomOf="@id/top_line2">
 
             <RelativeLayout
+                android:id="@+id/my_collect_layout"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:background="@color/white"

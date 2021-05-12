@@ -23,7 +23,6 @@ class MainFragment:BaseBindingViewModelFragment<FragmentMainBinding,MainVm>() {
         R.string.index,
         R.string.article,
         R.string.project,
-        R.string.todo,
         R.string.mine
     )
     private lateinit var  tabLayoutMediator:TabLayoutMediator
@@ -53,8 +52,7 @@ class MainFragment:BaseBindingViewModelFragment<FragmentMainBinding,MainVm>() {
                     0 -> tab.icon = resources.getDrawable(R.drawable.selector_tab_index)
                     1 -> tab.icon = resources.getDrawable(R.drawable.selector_tab_article)
                     2 -> tab.icon = resources.getDrawable(R.drawable.selector_tab_project)
-                    3 -> tab.icon = resources.getDrawable(R.drawable.selector_tab_todo)
-                    4 -> tab.icon = resources.getDrawable(R.drawable.selector_tab_mine)
+                    3 -> tab.icon = resources.getDrawable(R.drawable.selector_tab_mine)
                 }
             }
 
@@ -66,7 +64,6 @@ class MainFragment:BaseBindingViewModelFragment<FragmentMainBinding,MainVm>() {
         fragments.add(IndexFragment())
         fragments.add(ArticleFragment())
         fragments.add(ProjectFragment())
-        fragments.add(TodoFragment())
         fragments.add(MineFragment())
     }
 }

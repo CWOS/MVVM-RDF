@@ -1,6 +1,5 @@
 package com.cw.rdf.app.http
 
-import androidx.paging.PagedList
 import com.cw.rdf.app.model.*
 import retrofit2.http.*
 

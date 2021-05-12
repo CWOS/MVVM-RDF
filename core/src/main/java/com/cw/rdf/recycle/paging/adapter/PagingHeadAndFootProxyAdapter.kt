@@ -17,6 +17,7 @@ import com.cw.rdf.recycle.base.BindingLifecycleViewHolder
  */
 class PagingHeadAndFootProxyAdapter<T : Any>(@param:LayoutRes @field:LayoutRes private val layoutRes: Int):BasePageAdapter<T,ViewDataBinding>() {
 
+    private val TAG = "PagingHeadAndFootProxyA"
     private val BASE_ITEM_TYPE_HEADER = 100000
     private val BASE_ITEM_TYPE_FOOTER = 200000
     private val headerViews: SparseArrayCompat<ViewDataBinding> = SparseArrayCompat()
@@ -84,7 +85,10 @@ class PagingHeadAndFootProxyAdapter<T : Any>(@param:LayoutRes @field:LayoutRes p
     }
 
     private fun isFooterViewPos(position: Int): Boolean {
-        return position > getFootersCount() + getRealItemCount() - 1
+        if (getFootersCount() == 0) {
+            return false
+        }
+        return position > getHeadersCount() + getRealItemCount() - 1
     }
 
     fun addHeaderView(headerViewBinding: ViewDataBinding) {
@@ -94,8 +98,6 @@ class PagingHeadAndFootProxyAdapter<T : Any>(@param:LayoutRes @field:LayoutRes p
 
     fun addFooterView(footViewBinding: ViewDataBinding) {
         footViews.put(BASE_ITEM_TYPE_FOOTER + footViews.size(), footViewBinding)
-        notifyItemChanged(0)
-
     }
 
 

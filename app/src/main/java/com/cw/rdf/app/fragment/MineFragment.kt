@@ -26,7 +26,7 @@ class MineFragment:BaseBindingViewModelFragment<FragmentMineBinding,MineVm>() {
     }
 
     fun navToMyCollect(){
-        viewModel.getCollectList(0)
+        Navigation.findNavController(binding.myCollectLayout).navigate(R.id.action_mainFragment_to_myCollectFragment)
     }
 
     fun logout(){
