@@ -68,6 +68,7 @@ class PagingHeadAndFootProxyAdapter<T : Any>(@param:LayoutRes @field:LayoutRes p
         return super.getItemViewType(position)
     }
 
+
     private fun getRealItemCount(): Int {
         return super.getItemCount()
     }
@@ -100,5 +101,18 @@ class PagingHeadAndFootProxyAdapter<T : Any>(@param:LayoutRes @field:LayoutRes p
         footViews.put(BASE_ITEM_TYPE_FOOTER + footViews.size(), footViewBinding)
     }
 
-
+    /**
+     *
+     * @description 绑定 item 点击事件 回调
+     * @param holder
+     * @param binding
+     * @return
+     *
+     */
+    override fun bindClick(holder: BindingLifecycleViewHolder<*, *>, binding: ViewDataBinding){
+        binding.root.setOnClickListener {
+            val position = holder.layoutPosition - getHeadersCount()
+            itemOnClickListener?.onItemClick(getItem(position),position)
+        }
+    }
 }

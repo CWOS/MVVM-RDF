@@ -6,6 +6,10 @@
         <variable
             name="vm"
             type="com.cw.rdf.app.vm.IndexVm" />
+
+        <variable
+            name="fragment"
+            type="com.cw.rdf.app.fragment.IndexFragment" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -47,6 +51,7 @@
                 android:layout_height="match_parent"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:verticalSpace="@{@dimen/dp1}"
+                app:pageItemClick="@{(item,p)->fragment.onItemClick(item)}"
                 />
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 

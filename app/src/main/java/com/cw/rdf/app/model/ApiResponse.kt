@@ -1,5 +1,7 @@
 package com.cw.rdf.app.model
 
+import java.io.Serializable
+
 /**
  * @Description:
  * @Author: wanglejun
@@ -103,7 +105,7 @@ data class Article(
     var title: String,
     var type: Int? = 0,
     var userId: Int? = 0
-)
+):Serializable
 
 /**
  *

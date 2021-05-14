@@ -16,6 +16,9 @@
         <action
             android:id="@+id/action_mainFragment_to_myCollectFragment"
             app:destination="@id/myCollectFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_articleDetailFragment"
+            app:destination="@id/articleDetailFragment" />
     </fragment>
     <fragment
         android:id="@+id/indexFragment"
@@ -42,4 +45,8 @@
         android:id="@+id/myCollectFragment"
         android:name="com.cw.rdf.app.fragment.MyCollectFragment"
         android:label="MyCollectFragment" />
+    <fragment
+        android:id="@+id/articleDetailFragment"
+        android:name="com.cw.rdf.app.fragment.ArticleDetailFragment"
+        android:label="ArticleDetailFragment" />
 </navigation>

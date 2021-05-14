@@ -60,7 +60,7 @@ abstract class BasePageAdapter<T,BINDING : ViewDataBinding> :
      * @return
      *
      */
-    protected fun bindClick(holder: BindingLifecycleViewHolder<*, *>, binding: BINDING){
+    open fun bindClick(holder: BindingLifecycleViewHolder<*, *>, binding: BINDING){
         binding.root.setOnClickListener {
             val position = holder.layoutPosition
             itemOnClickListener?.onItemClick(getItem(position),position)

@@ -23,6 +23,7 @@ class ArticleVm(private val dataRepository: DataRepository):BaseViewModel() {
     private val TAG = "ArticleVm"
     private lateinit var articlePageData:LiveData<PagedList<Article>>
     var articleList = MutableLiveData<PagedList<Article>>()
+    var currentArticle = MutableLiveData<Article>()
 
 
 
@@ -44,9 +45,7 @@ class ArticleVm(private val dataRepository: DataRepository):BaseViewModel() {
     fun getMaidanArticleList(){
         articlePageData = LivePagedListBuilder<Int,Article>(pageKeyedDataSource,config).build()
         articlePageData.observeForever(Observer {
-            Log.d(TAG,"getMaidanArticleList===articlePageData====${it.size}")
             articleList.value = it
-            Log.d(TAG,"getMaidanArticleList====articleList===${articleList.value?.size}")
         })
     }
 

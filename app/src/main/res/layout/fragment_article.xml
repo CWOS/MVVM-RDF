@@ -6,6 +6,9 @@
         <variable
             name="vm"
             type="com.cw.rdf.app.vm.ArticleVm" />
+        <variable
+            name="fragment"
+            type="com.cw.rdf.app.fragment.ArticleFragment" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -48,7 +51,7 @@
                 android:layout_height="0dp"
                 app:pageData="@{vm.articleList}"
                 app:pageItemLayout="@{@layout/item_recycler_article}"
-                app:itemEventHandler="@{vm}"
+                app:pageItemClick="@{(item,p)->fragment.onItemClick(item)}"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:verticalSpace="@{@dimen/dp1}" />
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

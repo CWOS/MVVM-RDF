@@ -1,10 +1,12 @@
 package com.cw.rdf.app.fragment
 
 import android.annotation.SuppressLint
+import android.os.Bundle
 import android.view.LayoutInflater
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.Observer
+import androidx.navigation.Navigation
 import com.cw.rdf.app.R
 import com.cw.rdf.recycle.adapter.RecyclerHeadAndFootWrapper
 import com.cw.rdf.app.databinding.FragmentIndexBinding
@@ -32,6 +34,7 @@ class IndexFragment : BaseBindingViewModelFragment<FragmentIndexBinding, IndexVm
     override fun initDataBinding(binding: FragmentIndexBinding) {
         super.initDataBinding(binding)
         this.binding = binding
+        binding.fragment = this
         binding.lifecycleOwner = this
 
         viewModel.getBanners()
@@ -56,11 +59,6 @@ class IndexFragment : BaseBindingViewModelFragment<FragmentIndexBinding, IndexVm
 
         viewModel.banners.observe(this, Observer {
             bannerAdapter.data = it
-//            val headAndFootWrapper =
-//                RecyclerHeadAndFootWrapper(indexAdapter as BaseBindingAdapter<Any, ViewDataBinding>)
-//            headAndFootWrapper.addHeaderView(headerViewBinding)
-//
-//            binding.indexRecycler.adapter = headAndFootWrapper
         })
 
         viewModel.articleList.observe(this, Observer {
@@ -74,5 +72,10 @@ class IndexFragment : BaseBindingViewModelFragment<FragmentIndexBinding, IndexVm
         }
     }
 
-
+    fun onItemClick(item:Any){
+        val bundle = Bundle()
+        bundle.putSerializable("title",(item as Article).title)
+        bundle.putSerializable("link",item.link)
+        Navigation.findNavController(binding.indexRecycler).navigate(R.id.action_mainFragment_to_articleDetailFragment,bundle)
+    }
 }

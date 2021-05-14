@@ -30,4 +30,7 @@ val vmModule = module {
         MineVm(get(),get())
     }
 
+    viewModel {
+        ArticleDetailVm(get())
+    }
 }

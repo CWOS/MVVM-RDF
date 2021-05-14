@@ -2,6 +2,7 @@ package com.cw.rdf.recycle.binding
 
 import androidx.annotation.LayoutRes
 import androidx.databinding.BindingAdapter
+import androidx.databinding.ViewDataBinding
 import androidx.paging.PagedList
 import androidx.recyclerview.widget.RecyclerView
 import com.cw.rdf.recycle.base.BaseBindingAdapter
@@ -27,7 +28,7 @@ import com.cw.rdf.recycle.paging.adapter.SimplePageAdapter
  * @return
  *
  */
-@BindingAdapter("pageData","pageItemLayout","itemClick","itemEventHandler")
+@BindingAdapter("pageData","pageItemLayout","pageItemClick","itemEventHandler")
 fun <T> setPageData(recyclerView: RecyclerView, pageData: PagedList<T>?, @LayoutRes pageItemLayout:Int, itemClick: BaseBindingAdapter.OnItemClickListener<T>?, itemEventHandler: Any?){
     val adapter = recyclerView.adapter
     if(adapter == null){
@@ -37,7 +38,7 @@ fun <T> setPageData(recyclerView: RecyclerView, pageData: PagedList<T>?, @Layout
         simplePageAdapter.itemOnClickListener = itemClick
         simplePageAdapter.itemEventHandler = itemEventHandler
         recyclerView.adapter = simplePageAdapter
-    }else if(adapter is BasePageAdapter<*, *>){
+    }else if(adapter is SimplePageAdapter<*>){
         (adapter as SimplePageAdapter<T>).submitList(pageData)
         adapter.itemOnClickListener = itemClick
         adapter.itemEventHandler = itemEventHandler
@@ -49,7 +50,7 @@ fun <T> setPageData(recyclerView: RecyclerView, pageData: PagedList<T>?, @Layout
     setPageData(recyclerView,pageData,pageItemLayout,null,null)
 }
 
-@BindingAdapter("pageData","pageItemLayout","itemClick")
+@BindingAdapter("pageData","pageItemLayout","pageItemClick")
 fun <T> setPageData(recyclerView: RecyclerView, pageData: PagedList<T>?, @LayoutRes pageItemLayout: Int, itemClick: BaseBindingAdapter.OnItemClickListener<T>){
     setPageData(recyclerView,pageData,pageItemLayout,itemClick, null)
 }
@@ -60,5 +61,11 @@ fun <T> setPageData(recyclerView: RecyclerView, pageData: PagedList<T>?, @Layout
 }
 
 
-
+@BindingAdapter("pageItemClick")
+fun <T> setItemClick(recyclerView: RecyclerView,itemClick: BaseBindingAdapter.OnItemClickListener<T>?){
+    val adapter = recyclerView.adapter
+    if(adapter is BasePageAdapter<*,*>){
+        (adapter as BasePageAdapter<T, ViewDataBinding>).itemOnClickListener = itemClick
+    }
+}
 /**************** RecyclerView BasePageAdapter 相关属性设置 End *************************/
